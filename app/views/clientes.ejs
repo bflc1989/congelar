@@ -1,0 +1,622 @@
+<%- include('./cabecalho'); %>
+<h2 class="main">Realtórios de clientes</h2>
+<div class="container-fluid">
+  <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastro Cliente Pessoa Fisica</button>
+  <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Cadastro Cliente Pessoa Juridica</button>
+</div>
+
+<!-- Modal Cadastro Pessoal Fisica -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastro pessoa fisica</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if(perfil.length > 0) { %>
+        <form action="/cadastrapf" method="POST" class="row needs-validation" novalidate>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <% } %>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="nomepf" name="nome" placeholder="Digite seu Nome do cliente" required />
+            <label for="usuario" class="form-label">Digite seu Nome do cliente</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="cpfpf" name="cpf" placeholder="Digite o CPF" required />
+            <label for="cpf" class="form-label">Digite o CPF</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="ceppf" name="cep" placeholder="Digite o cep" required />
+            <label for="cep" class="form-label">Digite o cep</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="enderecopf" name="endereco" placeholder="Digite o endereco" required />
+            <label for="endereco" class="form-label">Digite o endereco</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="cidadepf" name="cidade" placeholder="Digite o cidade" required />
+            <label for="cidade" class="form-label">Digite o cidade</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="estadopf" name="estado" placeholder="Digite o estado" required />
+            <label for="estado" class="form-label">Digite o estado</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="tel" class="form-control" id="telefonepf" name="telefone" placeholder="Digite o telefone" required />
+            <label for="tel" class="form-label">Digite o telefone</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="email" class="form-control" id="emailpf" name="email" placeholder="Digite o email" required />
+            <label for="email" class="form-label">Digite o email</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="date" class="form-control" id="datanascpf" name="datanasc" placeholder="Digite a data de nascimento" required />
+            <label for="date" class="form-label">Digite a data de nascimento</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="bancopf" name="banco" placeholder="Digite o banco" />
+            <label for="banco" class="form-label">Digite o banco</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="agenciapf" name="agencia" placeholder="Digite a agencia" />
+            <label for="agencia" class="form-label">Digite o agencia</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="contacorrentepf" name="contacorrente" placeholder="Digite a conta corrente" />
+            <label for="contacorrente" class="form-label">Digite a conta corrente</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="prazopf" name="prazo" placeholder="Digite o prazo" required />
+            <label for="prazo" class="form-label">Digite o prazo</label>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Cadastro Pessoa Juridica -->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop2Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdrop2Label">Cadastro Pessoa Juridica</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if(perfil.length > 0) { %>
+        <form action="/cadastrapj" method="POST" class="row needs-validation" novalidate>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <% } %>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="empresapj" name="empresa" placeholder="Digite o nome da empresa" required />
+            <label for="empresa" class="form-label">Digite o nome da empresa </label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="fantasiapj" name="fantasia" placeholder="Digite o nome Fantasia" required />
+            <label for="fantasia" class="form-label">Digite o nome fantasia </label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="cnpjpj" name="cnpj" placeholder="Digite o cnpj" required />
+            <label for="cnpj" class="form-label">Digite o cnpj</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="estadualpj" name="estadual" placeholder="Digite a inscrição estadual" required />
+            <label for="estadual" class="form-label">Digite a inscrição estadual</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="municipalpj" name="municipal" placeholder="Digite a inscrição municipal" required />
+            <label for="municipal" class="form-label">Digite a inscrição municipal</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="representantepj" name="representante" placeholder="Digite o nome representante" required />
+            <label for="representante" class="form-label">Digite o nome representante</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="cargopj" name="cargo" placeholder="Digite o cargo representante" required />
+            <label for="cargo" class="form-label">Digite o cargo representante</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="tel" class="form-control" id="telefonepj" name="telefone" placeholder="Digite o telefone" required />
+            <label for="tel" class="form-label">Digite o telefone</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="email" class="form-control" id="emailpj" name="email" placeholder="Digite o email" required />
+            <label for="email" class="form-label">Digite o email</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="faturamentopj" name="faturamento" placeholder="Digite o cnpj para faturamento" required />
+            <label for="faturamento" class="form-label">Digite o cnpj para faturamento</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="bancopj" name="banco" placeholder="Digite o banco" />
+            <label for="banco" class="form-label">Digite o banco</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="agenciapj" name="agencia" placeholder="Digite a agencia" />
+            <label for="agencia" class="form-label">Digite o agencia</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="contacorrentepj" name="contacorrente" placeholder="Digite a conta corrente" />
+            <label for="contacorrente" class="form-label">Digite a conta corrente</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="prazopj" name="prazo" placeholder="Digite o prazo" required />
+            <label for="prazo" class="form-label">Digite o prazo</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="enderecopj" name="endereco" placeholder="Digite o endereco" required />
+            <label for="endereco" class="form-label">Digite o endereco</label>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="PJ-tab" data-bs-toggle="tab" data-bs-target="#PJ-tab-pane" type="button" role="tab" aria-controls="PJ-tab-pane" aria-selected="true">Clientes PJ</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="PF-tab" data-bs-toggle="tab" data-bs-target="#PF-tab-pane" type="button" role="tab" aria-controls="PF-tab-pane" aria-selected="false">Clientes PF</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="PJ-tab-pane" role="tabpanel" aria-labelledby="PJ-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tablepj" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Editar</th>
+            <th style="width: 5%">Remover</th>
+            <th>Nome da Empresa</th>
+            <th>Nome Fantasia</th>
+            <th>CNPJ</th>
+            <th>Inscrição Estadual</th>
+            <th>Inscrição Municipal</th>
+            <th>Nome do Representante Legal</th>
+            <th>Cargo do Representante</th>
+            <th>Telefone do Representante</th>
+            <th>E-mail do Representante</th>
+            <th>Banco</th>
+            <th>Agência</th>
+            <th>Conta Corrente</th>
+            <th>CNPJ para Faturamento</th>
+            <th>Endereço de Cobrança</th>
+            <th>Prazo de Pagamento</th>
+          </thead>
+          <tbody>
+            <% if(resultadopj.length > 0) { %> <% for(var i = 0; i < resultadopj.length; i++) {%>
+            <tr>
+              <td style="width: 5%">
+                <a
+                  href=""
+                  onclick="setaDadosModaleditpj('<%=resultadopj[i].idclientespj %>', '<%=resultadopj[i].empresa %>','<%=resultadopj[i].fantasia %>','<%=resultadopj[i].cnpj %>','<%=resultadopj[i].estadual %>','<%=resultadopj[i].municipal %>','<%=resultadopj[i].nome %>','<%=resultadopj[i].cargo %>','<%=resultadopj[i].telefone %>','<%=resultadopj[i].email %>','<%=resultadopj[i].banco %>','<%=resultadopj[i].agencia %>','<%=resultadopj[i].corrente %>','<%=resultadopj[i].faturamento %>','<%=resultadopj[i].endereco %>', '<%=resultadopj[i].prazo %>')"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editclientepj"
+                  ><i class="bi bi-pencil-square"></i
+                ></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepj('<%=resultadopj[i].idclientespj %>')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteclientepj"
+                  ><i class="bi bi-trash-fill"></i
+                ></a>
+              </td>
+              <td><%=resultadopj[i].empresa %></td>
+              <td><%=resultadopj[i].fantasia %></td>
+              <td><%=resultadopj[i].cnpj %></td>
+              <td><%=resultadopj[i].estadual %></td>
+              <td><%=resultadopj[i].municipal %></td>
+              <td><%=resultadopj[i].nome %></td>
+              <td><%=resultadopj[i].cargo %></td>
+              <td><%=resultadopj[i].telefone %></td>
+              <td><%=resultadopj[i].email %></td>
+              <td><%=resultadopj[i].banco %></td>
+              <td><%=resultadopj[i].agencia %></td>
+              <td><%=resultadopj[i].corrente %></td>
+              <td><%=resultadopj[i].faturamento %></td>
+              <td><%=resultadopj[i].endereco %></td>
+              <td><%=resultadopj[i].prazo %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="PF-tab-pane" role="tabpanel" aria-labelledby="PF-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tablepf" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Editar</th>
+            <th style="width: 5%">Remover</th>
+            <th>Nome da Cliente</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th>CEP</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Data de Nascimento</th>
+            <th>Banco</th>
+            <th>Agência</th>
+            <th>Conta Corrente</th>
+            <th>Prazo de Pagamento</th>
+          </thead>
+          <tbody>
+            <% if(resultado.length > 0) { %> <% for(var j = 0; j < resultado.length; j++) {%>
+            <tr>
+              <td style="width: 5%">
+                <a
+                  href=""
+                  onclick="setaDadosModaleditpf('<%=resultado[j].idclientes %>', '<%=resultado[j].nome %>', '<%=resultado[j].cpf %>', '<%=resultado[j].endereco %>', '<%=resultado[j].cep %>', '<%=resultado[j].cidade%>', '<%=resultado[j].estado %>', '<%=resultado[j].telefone %>', '<%=resultado[j].email %>', '<%=resultado[j].nascimento %>', '<%=resultado[j].banco %>', '<%=resultado[j].agencia %>', '<%=resultado[j].corrente %>', '<%=resultado[j].prazo %>')"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editclientepf"
+                  ><i class="bi bi-pencil-square"></i
+                ></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepf('<%=resultado[j].idclientes %>')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletecliente"
+                  ><i class="bi bi-trash-fill"></i
+                ></a>
+              </td>
+              <td><%=resultado[j].nome %></td>
+              <td><%=resultado[j].cpf %></td>
+              <td><%=resultado[j].endereco %></td>
+              <td><%=resultado[j].cep %></td>
+              <td><%=resultado[j].cidade %></td>
+              <td><%=resultado[j].estado %></td>
+              <td><%=resultado[j].telefone %></td>
+              <td><%=resultado[j].email %></td>
+              <td><%=resultado[j].datanasci %></td>
+              <td><%=resultado[j].banco %></td>
+              <td><%=resultado[j].agencia %></td>
+              <td><%=resultado[j].corrente %></td>
+              <td><%=resultado[j].prazo %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Pessoa Fisica -->
+  <div class="modal fade" id="editclientepf" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editclientepf" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editclientepf">Editar cadastro pessoa fisica</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% if(perfil.length > 0) { %>
+          <form action="/editarpf" method="POST" class="row needs-validation" novalidate>
+            <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+            <% } %>
+            <input type="hidden" name="ideditpf" id="ideditpf" />
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="nomeeditpf" name="nomeeditpf" placeholder="Digite seu Nome do cliente" required />
+              <label for="usuario" class="form-label">Digite seu Nome do cliente</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="cpfeditpf" name="cpfeditpf" placeholder="Digite o CPF" required />
+              <label for="cpf" class="form-label">Digite o CPF</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="cepeditpf" name="cepeditpf" placeholder="Digite o cep" required />
+              <label for="cep" class="form-label">Digite o cep</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="enderecoeditpf" name="enderecoeditpf" placeholder="Digite o endereco" required />
+              <label for="endereco" class="form-label">Digite o endereco</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="cidadeeditpf" name="cidadeeditpf" placeholder="Digite o cidade" required />
+              <label for="cidade" class="form-label">Digite o cidade</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="estadoeditpf" name="estadoeditpf" placeholder="Digite o estado" required />
+              <label for="estado" class="form-label">Digite o estado</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="tel" class="form-control" id="telefoneeditpf" name="telefoneeditpf" placeholder="Digite o telefone" required />
+              <label for="tel" class="form-label">Digite o telefone</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control" id="emaileditpf" name="emaileditpf" placeholder="Digite o email" required />
+              <label for="email" class="form-label">Digite o email</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="date" class="form-control" id="datanasceditpf" name="datanasceditpf" placeholder="Digite a data de nascimento" required />
+              <label for="date" class="form-label">Digite a data de nascimento</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="bancoeditpf" name="bancoeditpf" placeholder="Digite o banco" />
+              <label for="banco" class="form-label">Digite o banco</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="agenciaeditpf" name="agenciaeditpf" placeholder="Digite a agencia" />
+              <label for="agencia" class="form-label">Digite o agencia</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="contacorrenteeditpf" name="contacorrenteeditpf" placeholder="Digite a conta corrente" />
+              <label for="contacorrente" class="form-label">Digite a conta corrente</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="prazoeditpf" name="prazoeditpf" placeholder="Digite o prazo" required />
+              <label for="prazo" class="form-label">Digite o prazo</label>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Editar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal delete pessoa fisica -->
+  <div class="modal fade" id="deletecliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deletecliente" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deletecliente">Deseja deletar cliente pessoa fisica</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% if(perfil.length > 0) { %>
+          <form action="/deletepf" method="post" class="row needs-validation" novalidate>
+            <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+            <% } %>
+            <input type="hidden" name="iddeletepf" id="iddeletepf" />
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Pessoa Juridica -->
+  <div class="modal fade" id="editclientepj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editclientepj" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editclientepj">Editar Pessoa Juridica</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% if(perfil.length > 0) { %>
+          <form action="/editarpj" method="POST" class="row needs-validation" novalidate>
+            <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+            <% } %>
+            <input type="hidden" name="ideditpj" id="ideditpj" />
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="empresaeditpj" name="empresaeditpj" placeholder="Digite o nome da empresa" required />
+              <label for="empresa" class="form-label">Digite o nome da empresa </label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="fantasiaeditpj" name="fantasiaeditpj" placeholder="Digite o nome Fantasia" required />
+              <label for="fantasia" class="form-label">Digite o nome fantasia </label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="cnpjeditpj" name="cnpjeditpj" placeholder="Digite o cnpj" required />
+              <label for="cnpj" class="form-label">Digite o cnpj</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="estadualeditpj" name="estadualeditpj" placeholder="Digite a inscrição estadual" required />
+              <label for="estadual" class="form-label">Digite a inscrição estadual</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="municipaleditpj" name="municipaleditpj" placeholder="Digite a inscrição municipal" required />
+              <label for="municipal" class="form-label">Digite a inscrição municipal</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="representanteeditpj" name="representanteeditpj" placeholder="Digite o nome representante" required />
+              <label for="representante" class="form-label">Digite o nome representante</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="cargoeditpj" name="cargoeditpj" placeholder="Digite o cargo representante" required />
+              <label for="cargo" class="form-label">Digite o cargo representante</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="tel" class="form-control" id="telefoneeditpj" name="telefoneeditpj" placeholder="Digite o telefone" required />
+              <label for="tel" class="form-label">Digite o telefone</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control" id="emaileditpj" name="emaileditpj" placeholder="Digite o email" required />
+              <label for="email" class="form-label">Digite o email</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="faturamentoeditpj" name="faturamentoeditpj" placeholder="Digite o cnpj para faturamento" required />
+              <label for="faturamento" class="form-label">Digite o cnpj para faturamento</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="bancoeditpj" name="bancoeditpj" placeholder="Digite o banco" />
+              <label for="banco" class="form-label">Digite o banco</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="agenciaeditpj" name="agenciaeditpj" placeholder="Digite a agencia" />
+              <label for="agencia" class="form-label">Digite o agencia</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="contacorrenteeditpj" name="contacorrenteeditpj" placeholder="Digite a conta corrente" />
+              <label for="contacorrente" class="form-label">Digite a conta corrente</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="prazoeditpj" name="prazoeditpj" placeholder="Digite o prazo" required />
+              <label for="prazo" class="form-label">Digite o prazo</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="enderecoeditpj" name="enderecoeditpj" placeholder="Digite o endereco" required />
+              <label for="endereco" class="form-label">Digite o endereco</label>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal delete pessoa juridica -->
+  <div class="modal fade" id="deleteclientepj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteclientepj" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteclientepj">Deseja deletar cliente pessoa juridica</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% if(perfil.length > 0) { %>
+          <form action="/deletepj" method="post" class="row needs-validation" novalidate>
+            <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+            <% } %>
+            <input type="hidden" name="iddeletepj" id="iddeletepj" />
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  <script>
+    $(function () {
+      $("#header").load("cabecario.html");
+    });
+
+    let table = new DataTable("#tablepj");
+
+    new DataTable.Buttons(table, {
+      buttons: [
+        {
+          extend: "copy",
+          text: "COPIAR",
+        },
+        {
+          extend: "pdf",
+          text: "PDF",
+        },
+        {
+          extend: "excel",
+          text: "EXCEL",
+        },
+        {
+          extend: "print",
+          text: "IMPRIMIR",
+        },
+      ],
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+      },
+    });
+
+    table.buttons(0, null).container().prependTo(table.table().container());
+
+    let tablepf = new DataTable("#tablepf");
+
+    new DataTable.Buttons(tablepf, {
+      buttons: [
+        {
+          extend: "copy",
+          text: "COPIAR",
+        },
+        {
+          extend: "pdf",
+          text: "PDF",
+        },
+        {
+          extend: "excel",
+          text: "EXCEL",
+        },
+        {
+          extend: "print",
+          text: "IMPRIMIR",
+        },
+      ],
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+      },
+    });
+
+    tablepf.buttons(0, null).container().prependTo(tablepf.table().container());
+
+    $("#telefonepf").mask("(00) 0000-0000");
+    $("#cpfpf").mask("000.000.000-00");
+    $("#ceppf").mask("00000-000");
+
+    $("#cnpjpj").mask("99.999.999/9999-99");
+    $("#telefonepj").mask("(00) 0000-0000");
+    $("#faturamentopj").mask("99.999.999/9999-99");
+
+    $("#telefoneeditpf").mask("(00) 0000-0000");
+    $("#cpfeditpf").mask("000.000.000-00");
+    $("#cepeditpf").mask("00000-000");
+
+    $("#cnpjeditpj").mask("99.999.999/9999-99");
+    $("#telefoneeditpj").mask("(00) 0000-0000");
+    $("#faturamentoeditpj").mask("99.999.999/9999-99");
+
+    function setaDadosModaleditpf(valor0, valor1, valor2, valor3, valor4, valor5, valor6, valor7, valor8, valor9, valor10, valor11, valor12, valor13) {
+      document.getElementById("ideditpf").value = valor0;
+      document.getElementById("nomeeditpf").value = valor1;
+      document.getElementById("cpfeditpf").value = valor2;
+      document.getElementById("enderecoeditpf").value = valor3;
+      document.getElementById("cepeditpf").value = valor4;
+      document.getElementById("cidadeeditpf").value = valor5;
+      document.getElementById("estadoeditpf").value = valor6;
+      document.getElementById("telefoneeditpf").value = valor7;
+      document.getElementById("emaileditpf").value = valor8;
+      document.getElementById("datanasceditpf").value = valor9;
+      document.getElementById("bancoeditpf").value = valor10;
+      document.getElementById("agenciaeditpf").value = valor11;
+      document.getElementById("contacorrenteeditpf").value = valor12;
+      document.getElementById("prazoeditpf").value = valor13;
+    }
+
+    function setaDadosModaleditpj(valor, valor1, valor2, valor3, valor4, valor5, valor6, valor7, valor8, valor9, valor10, valor11, valor12, valor13, valor14, valor15) {
+      document.getElementById("ideditpj").value = valor;
+      document.getElementById("empresaeditpj").value = valor1;
+      document.getElementById("fantasiaeditpj").value = valor2;
+      document.getElementById("cnpjeditpj").value = valor3;
+      document.getElementById("estadualeditpj").value = valor4;
+      document.getElementById("municipaleditpj").value = valor5;
+      document.getElementById("representanteeditpj").value = valor6;
+      document.getElementById("cargoeditpj").value = valor7;
+      document.getElementById("telefoneeditpj").value = valor8;
+      document.getElementById("emaileditpj").value = valor9;
+      document.getElementById("bancoeditpj").value = valor10;
+      document.getElementById("agenciaeditpj").value = valor11;
+      document.getElementById("contacorrenteeditpj").value = valor12;
+      document.getElementById("faturamentoeditpj").value = valor13;
+      document.getElementById("prazoeditpj").value = valor14;
+      document.getElementById("enderecoeditpj").value = valor15;
+    }
+    function setaDadosModaldeletepf(valor) {
+      document.getElementById("iddeletepf").value = valor;
+    }
+
+    function setaDadosModaldeletepj(valor) {
+      document.getElementById("iddeletepj").value = valor;
+    }
+  </script>
+</div>

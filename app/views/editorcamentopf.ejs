@@ -1,0 +1,529 @@
+<%- include('./cabecalho'); %>
+<h1 class="main">Editar Orcamentos</h1>
+
+<div id="printElement" class="d-grid gap-2 col-10 mx-auto mb-3">
+  <div class="col-md-12 px-3 mb-2">
+    <button type="button" onclick="imprimir()" class="btn btn-info mb-3"><i class="bi bi-printer-fill"></i></button>
+  </div>
+  <form class="form3 row needs-validation" novalidate>
+    <% if(perfil.length > 0) { %>
+    <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+    <% } %> <% if(resultado.length > 0) { %>
+    <div class="form-check">
+      <input type="hidden" class="form-control mb-3" id="newDate" value="" readonly disabled />
+      <input type="radio" class="mb-3" id="Radio_1" name="Radio" value="Pessoa Fisica" <%= resultado[0].cpf!=null ? 'checked' : '' %> />
+      <label name="Radio1" for="Radio_1">Pessoa Fisica</label>
+      <input type="radio" class="mb-3" id="Radio_2" name="Radio" value="Pessoa Juridica"<%= resultado[0].cnpj!=null ? 'checked' : '' %> />
+      <label name="Radio2" for="Radio_2">Pessoa Juridica</label>
+
+      <input type="text" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-2" id="cpf" name="cpf" value="<%= resultado[0].cpf%>" />
+      <input type="text" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-2" id="cnpj" name="cnpj" value="<%= resultado[0].cnpj%>" />
+      <button type="button" id="buscarcliente" class="btn btn-info mb-3">
+        <i class="bi bi-search"></i>
+      </button>
+      <input
+        type="text"
+        data-show-if="Radio2"
+        data-hide-if="Radio1"
+        class="form-control mb-3"
+        id="nomeempresa"
+        name="nomeempresa"
+        placeholder="Digite o nome da empresa"
+        value="<%= resultado[0].empresa%>" />
+      <input
+        type="text"
+        data-show-if="Radio2"
+        data-hide-if="Radio1"
+        class="form-control mb-3"
+        id="representante"
+        name="representante"
+        placeholder="Digite o nome representante"
+        value="<%= resultado[0].nomepj%>" />
+      <input type="tel" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="telefonepj" name="telefonepj" placeholder="Digite o telefone" value="<%= resultado[0].telefonepj%>" />
+      <input type="email" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="emailpj" name="emailpj" placeholder="Digite o email" value="<%= resultado[0].emailpj%>" />
+      <input
+        type="text"
+        data-show-if="Radio2"
+        data-hide-if="Radio1"
+        class="form-control mb-3"
+        id="enderecopj"
+        name="enderecopj"
+        placeholder="Digite o endereco"
+        value="<%= resultado[0].enderecopj%>" />
+
+      <input type="text" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="nomepf" name="nomepf" placeholder="Digite seu Nome do cliente" value="<%= resultado[0].nomepf%>" />
+      <input type="tel" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="telefonepf" name="telefonepf" placeholder="Digite o telefone" value="<%= resultado[0].telefonepf%>" />
+      <input
+        type="text"
+        data-show-if="Radio1"
+        data-hide-if="Radio2"
+        class="form-control mb-3"
+        id="enderecopf"
+        name="enderecopf"
+        placeholder="Digite o endereco"
+        value="<%= resultado[0].enderecopf%>" />
+      <input type="email" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="emailpf" name="emailpf" placeholder="Digite o email" value="<%= resultado[0].emailpf%>" />
+    </div>
+    <div class="form-check align-items-center">
+      <h6 class="mb-3">ESCOPO DE FORNECIMENTOS CONGELAR</h6>
+      <div class="col-auto mb-3">
+        <input type="text" class="form-control mb-3" id="escopo" name="escopo" placeholder="Digite um escopo" />
+      </div>
+      <div class="col-auto">
+        <button type="button" class="botao btn btn-sucess mb-3">
+          <i class="bi bi-plus-circle mb-3"></i>
+        </button>
+        <button type="button" onclick="criarQuadradoeditavel('<%= resultado[0].escopocongelar%>')" class="botao btn btn-sucess mb-3">
+          <i class="bi bi-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container-fluid" id="app"></div>
+    </div>
+    <div class="form-check align-items-center">
+      <h6 class="mb-3">ESCOPO DE FORNECIMENTOS A CARGO DO CLIENTE</h6>
+      <div class="col-auto">
+        <input type="text" class="form-control mb-3" id="escopo2" name="escopo2" placeholder="Digite um escopo" />
+      </div>
+      <div class="col-auto">
+        <button type="button" class="botao2 btn btn-sucess mb-3">
+          <i class="bi bi-plus-circle"></i>
+        </button>
+        <button type="button" onclick="criarQuadradoeditavel2('<%= resultado[0].escopocliente%>')" class="botao btn btn-sucess mb-3">
+          <i class="bi bi-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container-fluid" id="app2"></div>
+    </div>
+    <button type="button" class="btn btn-info mb-3" onclick="inputeditavel()">Editar <i class="bi bi-arrow-up"></i></button>
+    <div class="form-check align-items-center">
+      <h6 class="mb-3">Descritivo</h6>
+      <input type="text" class="form-control mb-3" id="qtd" name="qtd" placeholder="Digite um qtd" />
+      <input type="text" class="form-control mb-3" id="descritivo" name="descritivo" placeholder="Digite um descritivo" />
+      <input type="text" class="form-control mb-3" id="valor" name="valor" placeholder="Digite um valor" />
+      <input type="text" class="form-control mb-3" id="parcelado" name="parcelado" placeholder="Digite um parcelamento" />
+      <div class="col-md-12 px-3 mb-2">
+        <button type="button" class="btn btn-warning" id="botaoAdicionar" onclick="adicionarLinha()"><i class="bi bi-plus-circle"></i> Incluir linha</button>
+      </div>
+      <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos">
+        <thead>
+          <tr id="linha">
+            <th></th>
+            <th>QTD</th>
+            <th>Descritivo</th>
+            <th>Valor</th>
+            <th>Parcelado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < resultado.length; i++) {%>
+          <tr>
+            <td><%= resultado[i].idtabela%></td>
+            <td><%= resultado[i].tabelaqtd%></td>
+            <td><%= resultado[i].tabeladescricao%></td>
+            <td><%= resultado[i].tabelavalor%></td>
+            <td><%= resultado[i].tabelaparcela%></td>
+            <td button>
+              <a class="btn btn-danger" onclick="pegandoid('<%= resultado[i].idtabela%>')"><i class="bi bi-trash-fill"></i></a>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos1">
+        <tbody class="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="container-fluid" id="app3"></div>
+    <div class="container-fluid" id="app4"></div>
+    <div class="form-check align-items-center mb-3">
+      <input type="hidden" class="form-control mb-3" id="idorcamentopf" name="idorcamentopf" value="<%= resultado[0].idorcamentopf%>" />
+      <h6 class="mb-3">CONDIÇÕES DE PAGAMENTO</h6>
+      <input type="text" class="form-control mb-3" id="CONDIÇÕES" name="CONDIÇÕES" placeholder="Digite CONDIÇÕES DE PAGAMENTO" value="<%= resultado[0].condicoes%>" />
+      <h6 class="mb-3">PRAZO DE EXECUÇÃO</h6>
+      <input type="text" class="form-control mb-3" id="EXECUÇÃO" name="EXECUÇÃO" placeholder="Digite PRAZO DE EXECUÇÃO" value="<%= resultado[0].execucao%>" />
+      <h6 class="mb-3">GARANTIA</h6>
+      <input type="text" class="form-control mb-3" id="GARANTIA" name="GARANTIA" placeholder="Digite GARANTIA" value="<%= resultado[0].garantia%>" />
+      <h6 class="mb-3">VALIDADE DA PROPOSTA</h6>
+      <input type="text" class="form-control mb-3" id="PROPOSTA" name="PROPOSTA" placeholder="Digite VALIDADE DA PROPOSTA" value="<%= resultado[0].proposta%>" />
+    </div>
+    <% } %>
+    <button type="button" onclick="valorcheckbox2()" class="btn btn-success btn-lg mb-3">Editar Orçamento</button>
+  </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<script src="../js/print.js"></script>
+
+<script>
+  var btnElement = document.querySelector("button.botao");
+  btnElement.addEventListener("click", criarQuadrado);
+
+  function criarQuadrado() {
+    var newDiv1 = document.createElement("div");
+    var newDiv = document.createElement("input");
+    var texto = document.getElementById("escopo").value;
+    var newDiv2 = document.createElement("button");
+    newDiv1.className = "dep_fc container-fluid mb-2";
+    newDiv.type = "text";
+    newDiv.className = "principal form-control ";
+    newDiv.name = "principal";
+    newDiv.id = "principal";
+    newDiv.readOnly = true;
+    newDiv.value = texto;
+    newDiv2.type = "button";
+    newDiv2.innerHTML = '<i class="bi bi-trash-fill"></i>';
+    newDiv2.className = "btn btn-sm btn-primary remove";
+    newDiv1.appendChild(newDiv);
+    newDiv1.appendChild(newDiv2);
+    document.querySelector("#app").appendChild(newDiv1);
+  }
+
+  function criarQuadradoeditavel(valor) {
+    const string = valor;
+    const splittedString = string.split(/,(?! )/);
+    for (var j = 0; j < splittedString.length; j++) {
+      var newDiv1 = document.createElement("div");
+      var newDiv = document.createElement("input");
+      var texto = splittedString[j];
+      var newDiv2 = document.createElement("button");
+      newDiv1.className = "dep_fc container-fluid mb-2";
+      newDiv.type = "text";
+      newDiv.className = "principal form-control ";
+      newDiv.name = "principal";
+      newDiv.id = "principal";
+      newDiv.readOnly = true;
+      newDiv.value = texto;
+      newDiv2.type = "button";
+      newDiv2.innerHTML = '<i class="bi bi-trash-fill"></i>';
+      newDiv2.className = "btn btn-sm btn-primary remove";
+      newDiv1.appendChild(newDiv);
+      newDiv1.appendChild(newDiv2);
+      document.querySelector("#app").appendChild(newDiv1);
+    }
+  }
+
+  var btnElement2 = document.querySelector("button.botao2");
+  btnElement2.addEventListener("click", criarQuadrado2);
+
+  function criarQuadrado2() {
+    var newDiv9 = document.createElement("div");
+    var newDiv8 = document.createElement("input");
+    var texto = document.getElementById("escopo2").value;
+    var newDiv7 = document.createElement("button");
+    newDiv9.className = "dep_fc container-fluid mb-2";
+    newDiv8.type = "text";
+    newDiv8.className = "principal2 form-control ";
+    newDiv8.name = "principal2";
+    newDiv8.id = "principal2";
+    newDiv8.readOnly = true;
+    newDiv8.value = texto;
+    newDiv7.type = "button";
+    newDiv7.innerHTML = '<i class="bi bi-trash-fill"></i>';
+    newDiv7.className = "btn btn-sm btn-primary remove";
+    newDiv9.appendChild(newDiv8);
+    newDiv9.appendChild(newDiv7);
+    document.querySelector("#app2").appendChild(newDiv9);
+  }
+
+  function criarQuadradoeditavel2(valor) {
+    const string = valor;
+    const splittedString = string.split(/,(?! )/);
+    for (var j = 0; j < splittedString.length; j++) {
+      var newDiv9 = document.createElement("div");
+      var newDiv8 = document.createElement("input");
+      var texto = splittedString[j];
+      var newDiv7 = document.createElement("button");
+      newDiv9.className = "dep_fc container-fluid mb-2";
+      newDiv8.type = "text";
+      newDiv8.className = "principal2 form-control ";
+      newDiv8.name = "principal2";
+      newDiv8.id = "principal2";
+      newDiv8.readOnly = true;
+      newDiv8.value = texto;
+      newDiv7.type = "button";
+      newDiv7.innerHTML = '<i class="bi bi-trash-fill"></i>';
+      newDiv7.className = "btn btn-sm btn-primary remove";
+      newDiv9.appendChild(newDiv8);
+      newDiv9.appendChild(newDiv7);
+      document.querySelector("#app2").appendChild(newDiv9);
+    }
+  }
+
+  function adicionarLinha() {
+    var table = document.getElementById("tabelaProdutos1");
+
+    var row = table.insertRow(table.rows.length);
+    var chave = "linha";
+    row.id = chave;
+    var cpf = document.getElementById("cpf").value;
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+
+    cell1.innerHTML = "";
+    cell2.innerHTML = document.getElementById("qtd").value;
+    cell3.innerHTML = document.getElementById("descritivo").value;
+    cell4.innerHTML = document.getElementById("valor").value;
+    cell5.innerHTML = document.getElementById("parcelado").value;
+    cell6.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
+  }
+
+  $("#buscarcliente").on("click", function (e) {
+    var cpf = document.getElementById("cpf").value;
+    var cnpj = document.getElementById("cnpj").value;
+    if (cpf != "") {
+      $.ajax({
+        type: "GET",
+        data: { cpf: cpf },
+        async: false,
+        contentType: "application/json",
+        url: "/buscarcliente",
+        success: function (data) {
+          if (data != "") {
+            document.getElementById("nomepf").value = data[0].nome;
+            document.getElementById("enderecopf").value = data[0].endereco;
+            document.getElementById("telefonepf").value = data[0].telefone;
+            document.getElementById("emailpf").value = data[0].email;
+          } else {
+            alert("Cliente não encontrado");
+          }
+        },
+      });
+    } else if (cnpj != "") {
+      $.ajax({
+        type: "GET",
+        data: { cnpj: cnpj },
+        async: false,
+        contentType: "application/json",
+        url: "/buscarclientepj",
+        success: function (data) {
+          if (data != "") {
+            document.getElementById("nomeempresa").value = data[0].empresa;
+            document.getElementById("enderecopj").value = data[0].endereco;
+            document.getElementById("telefonepj").value = data[0].telefone;
+            document.getElementById("emailpj").value = data[0].email;
+            document.getElementById("representante").value = data[0].nome;
+          } else {
+            alert("Cliente não encontrado");
+          }
+        },
+        error: function (request, status, error) {
+          alert(request.responseText);
+        },
+      });
+    } else {
+      alert("Selecione uma opção");
+    }
+  });
+
+  function valorcheckbox2() {
+    $("#tabelaProdutos tbody tr").each(function () {
+      // Recuperar todas as colunas da linha percorida
+      var colunas = $(this).children();
+
+      var pedidos = [];
+      // Criar objeto para armazenar os dados
+      var pedido = {
+        id: $(colunas[0]).text(),
+        qtd: $(colunas[1]).text(), // valor da coluna Produto
+        descricao: $(colunas[2]).text(), // Valor da coluna descricao
+        valor: $(colunas[3]).text(), // Valor da coluna valor
+        parcela: $(colunas[4]).text(), // Valor da coluna parcela
+      };
+
+      // Adicionar o objeto pedido no array
+      pedidos.push(pedido);
+      // listando os pedidos função teste
+      pedidos.forEach((item) => {
+        if (item.qtd == "No data available in table") {
+        } else {
+          var newDivtab = document.createElement("div");
+          var newDivinputidtabela = document.createElement("input");
+          var newDivinputqtd = document.createElement("input");
+          var newDivinputdescricao = document.createElement("input");
+          var newDivinputvalor = document.createElement("input");
+          var newDivinputparcela = document.createElement("input");
+          newDivtab.className = "container-fluid mb-2";
+          newDivinputqtd.type = "hidden";
+          newDivinputqtd.className = "form-control"; // set the CSS class
+          newDivinputqtd.name = "linhaTabela";
+          newDivinputqtd.value = item.qtd;
+          newDivinputidtabela.type = "hidden";
+          newDivinputidtabela.className = "form-control"; // set the CSS class
+          newDivinputidtabela.name = "linhaTabela";
+          newDivinputidtabela.value = item.id;
+          newDivinputdescricao.type = "hidden";
+          newDivinputdescricao.className = "form-control"; // set the CSS class
+          newDivinputdescricao.name = "linhaTabela";
+          newDivinputdescricao.value = item.descricao;
+          newDivinputvalor.type = "hidden";
+          newDivinputvalor.className = "form-control"; // set the CSS class
+          newDivinputvalor.name = "linhaTabela";
+          newDivinputvalor.value = item.valor;
+          newDivinputparcela.type = "hidden";
+          newDivinputparcela.className = "form-control"; // set the CSS class
+          newDivinputparcela.name = "linhaTabela";
+          newDivinputparcela.value = item.parcela;
+          document.querySelector("#app3").appendChild(newDivtab);
+          document.querySelector("#app3").appendChild(newDivinputidtabela);
+          document.querySelector("#app3").appendChild(newDivinputqtd);
+          document.querySelector("#app3").appendChild(newDivinputdescricao);
+          document.querySelector("#app3").appendChild(newDivinputvalor);
+          document.querySelector("#app3").appendChild(newDivinputparcela);
+        }
+      });
+    });
+    $("#tabelaProdutos1 tbody tr").each(function () {
+      // Recuperar todas as colunas da linha percorida
+      var colunas = $(this).children();
+
+      var pedidos1 = [];
+      // Criar objeto para armazenar os dados
+      var pedido1 = {
+        id: $(colunas[0]).text(),
+        qtd: $(colunas[1]).text(), // valor da coluna Produto
+        descricao: $(colunas[2]).text(), // Valor da coluna descricao
+        valor: $(colunas[3]).text(), // Valor da coluna valor
+        parcela: $(colunas[4]).text(), // Valor da coluna parcela
+      };
+
+      // Adicionar o objeto pedido no array
+      pedidos1.push(pedido1);
+      // listando os pedidos função teste
+      pedidos1.forEach((item) => {
+        if (item.qtd == "No data available in table") {
+        } else {
+          var newDivtab = document.createElement("div");
+          var newDivinputidtabela = document.createElement("input");
+          var newDivinputqtd = document.createElement("input");
+          var newDivinputdescricao = document.createElement("input");
+          var newDivinputvalor = document.createElement("input");
+          var newDivinputparcela = document.createElement("input");
+          newDivtab.className = "container-fluid mb-2";
+          newDivinputqtd.type = "hidden";
+          newDivinputqtd.className = "form-control"; // set the CSS class
+          newDivinputqtd.name = "linhaTabela1";
+          newDivinputqtd.value = item.qtd;
+          newDivinputidtabela.type = "hidden";
+          newDivinputidtabela.className = "form-control"; // set the CSS class
+          newDivinputidtabela.name = "linhaTabela1";
+          newDivinputidtabela.value = item.id;
+          newDivinputdescricao.type = "hidden";
+          newDivinputdescricao.className = "form-control"; // set the CSS class
+          newDivinputdescricao.name = "linhaTabela1";
+          newDivinputdescricao.value = item.descricao;
+          newDivinputvalor.type = "hidden";
+          newDivinputvalor.className = "form-control"; // set the CSS class
+          newDivinputvalor.name = "linhaTabela1";
+          newDivinputvalor.value = item.valor;
+          newDivinputparcela.type = "hidden";
+          newDivinputparcela.className = "form-control"; // set the CSS class
+          newDivinputparcela.name = "linhaTabela1";
+          newDivinputparcela.value = item.parcela;
+          document.querySelector("#app4").appendChild(newDivtab);
+          document.querySelector("#app4").appendChild(newDivinputidtabela);
+          document.querySelector("#app4").appendChild(newDivinputqtd);
+          document.querySelector("#app4").appendChild(newDivinputdescricao);
+          document.querySelector("#app4").appendChild(newDivinputvalor);
+          document.querySelector("#app4").appendChild(newDivinputparcela);
+        }
+      });
+    });
+    var formDados = $(".form3").serialize();
+
+    $.ajax({
+      url: "/editarOrcamento",
+      type: "POST",
+      data: formDados,
+      cache: false,
+      processData: false,
+      dataType: "html",
+      success: function (data) {
+        var perfil = document.getElementById("perfil").value;
+        window.location.href = "./orcamentos?perfil=" + perfil;
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("buscar cliente para criar orçamento");
+      },
+    });
+  }
+
+  $(document).on("click", "a.excluir", function () {
+    $(this).parent().parent().remove();
+  });
+
+  function pegandoid(idlinha) {
+    var id = idlinha;
+    $(this).parent().parent().remove();
+
+    $.ajax({
+      type: "get",
+      data: { id: id },
+      async: false,
+      contentType: "application/json",
+      url: "/deletelinha",
+      success: function (data) {
+        var perfil = document.getElementById("perfil").value;
+        var cpf = document.getElementById("cpf").value;
+        window.location.href = "../editorcamentopf?perfil=" + perfil + "&cpf=" + cpf + "";
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("delete com erro");
+      },
+    });
+  }
+
+  $(function () {
+    $("td").dblclick(function () {
+      var conteudoOriginal = $(this).text();
+
+      $(this).addClass("celulaEmEdicao");
+      $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+      $(this).children().first().focus();
+
+      $(this)
+        .children()
+        .first()
+        .keypress(function (e) {
+          if (e.which == 13) {
+            var novoConteudo = $(this).val();
+            $(this).parent().text(novoConteudo);
+            $(this).parent().removeClass("celulaEmEdicao");
+          }
+        });
+
+      $(this)
+        .children()
+        .first()
+        .blur(function () {
+          $(this).parent().text(conteudoOriginal);
+          $(this).parent().removeClass("celulaEmEdicao");
+        });
+    });
+  });
+
+  function inputeditavel() {
+    $("input").attr("readonly", false);
+  }
+
+  $(document).on("click", "button.remove", function () {
+    $(this).closest("div.dep_fc").remove();
+  });
+
+  function imprimir() {
+    printJS({
+      printable: "printElement",
+      type: "html",
+      documentTitle: "Orçamento",
+      targetStyles: ["*"],
+      maxWidth: 1400,
+    });
+  }
+</script>

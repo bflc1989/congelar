@@ -1,0 +1,230 @@
+body {
+  background-color: #f8f8f8;
+}
+
+/* Form */
+#form-container {
+  background-color: #d3d5fd;
+  border-radius: 20px;
+  box-shadow: 0.5px 10px 15px rgba(0, 0, 0, 0.2);
+  margin: 25px auto;
+  padding: 25px;
+}
+
+@media (min-width: 768px) {
+  #form-container {
+    margin: 50px auto;
+    padding: 50px;
+  }
+}
+
+#form-container h2 {
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+#form-container a {
+  color: #222;
+  transition: 0.5s;
+}
+
+#form-container a:hover {
+  color: #6c63ff;
+}
+
+#form-container form {
+  padding-bottom: 50px;
+}
+
+.form-label {
+  margin-left: 15px;
+}
+#user {
+  width: 100px;
+  position: relative;
+  left: 30%;
+}
+
+@media (min-width: 768px) {
+  #user {
+    left: 35%;
+  }
+}
+
+#form-container .form-control {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+}
+
+#form-container .form-control:focus {
+  box-shadow: none;
+}
+
+#form-container .form-floating label {
+  color: #ccc;
+}
+
+#form-container .form-floating > .form-control:focus ~ label {
+  color: #222;
+}
+
+#form-container .form-check-input:checked,
+#form-container input[type="submit"] {
+  background-color: #6c63ff;
+  border-color: #6c63ff;
+}
+
+.btn.btn-primary {
+  width: 100%;
+}
+
+.btn.btn-info {
+  width: 100%;
+}
+
+#orcamento {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .btn.btn-primary {
+    width: auto;
+  }
+}
+
+/* Image */
+
+.row.align-items-center {
+  align-content: center;
+  height: 100%;
+}
+
+#link-container {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.navbar {
+  background-color: #538cc6;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+}
+
+.navbar > .container-fluid {
+  margin-left: 20px;
+}
+
+.navbar a {
+  color: white;
+}
+
+#iconMenu {
+  color: white;
+  font-size: 35px;
+  margin: -11px;
+}
+
+#logo {
+  width: 50px;
+  margin: 5px 0 0px 0px;
+}
+
+.offcanvas {
+  background-color: #eae9e9;
+}
+
+.nav .nav-link {
+  color: black;
+}
+
+.nav .nav-link:active {
+  background-color: rgb(37, 68, 245);
+  color: #222;
+}
+
+h1 {
+  font-weight: 900;
+}
+.main {
+  padding: 12px;
+  margin-top: 80px;
+}
+
+#sair {
+  font-size: 25px;
+  margin: auto;
+  padding: 25px;
+  color: black;
+}
+
+#home {
+  font-size: 25px;
+  margin: auto;
+  color: black;
+}
+
+table {
+  font-size: 10px;
+}
+
+.col-2 {
+  width: 65%;
+  padding-top: 5px;
+}
+
+.col-1 {
+  width: 30%;
+}
+
+[data-show-if] {
+  display: none;
+}
+
+#Radio_1:checked ~ [data-show-if="Radio1"] {
+  display: block;
+}
+#Radio_2:checked ~ [data-show-if="Radio2"] {
+  display: block;
+}
+#logonova {
+  width: 30%;
+}
+
+.dt-empty {
+  display: none;
+}
+
+.tabelaEditavel {
+  font-size: 12px;
+  border: solid 1px;
+  width: 100%;
+}
+
+.tabelaEditavel td {
+  border: solid 1px;
+  width: 15%;
+}
+
+.tabelaEditavel .celulaEmEdicao {
+  padding: 0;
+}
+
+.tabelaEditavel .celulaEmEdicao input[type="text"] {
+  font-size: 12px;
+  width: 100%;
+  border: 0;
+  background-color: rgb(255, 253, 210);
+}
+.fundoIdade {
+  background: rgb(185, 1, 1) !important;
+}
+.fundoIdade2 {
+  background: rgb(255, 234, 49) !important;
+}
+
+.pnotify-center {
+  top: calc(50% - -250px) !important;
+  display: block !important;
+}

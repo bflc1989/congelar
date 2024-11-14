@@ -1,0 +1,353 @@
+<%- include('./cabecalho'); %>
+<h1 class="main">Pagina Serviço</h1>
+<div class="container-fluid">
+  <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="PJ-tab" data-bs-toggle="tab" data-bs-target="#PJ-tab-pane" type="button" role="tab" aria-controls="PJ-tab-pane" aria-selected="true">Clientes PJ</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="PF-tab" data-bs-toggle="tab" data-bs-target="#PF-tab-pane" type="button" role="tab" aria-controls="PF-tab-pane" aria-selected="false">Clientes PF</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="PJ-tab-pane" role="tabpanel" aria-labelledby="PJ-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tablepj" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Concluir ordem de serviço</th>
+            <th style="width: 5%">Remover</th>
+            <th style="width: 5%">Gerar Boleto</th>
+            <th>CNPJ</th>
+            <th>Status</th>
+            <th>Data conclusão</th>
+            <th>Boleto</th>
+            <th>Valor</th>
+            <th>Vencimento</th>
+          </thead>
+          <tbody>
+            <% if(resultados.length > 0) { %> <% for(var j = 0; j < resultados.length; j++) {%>
+            <tr>
+              <%if(resultados[j].status == "Concluido"){%>
+              <td style="width: 5%">
+                <button href="" disabled onclick="setaDadosModalaprovarpj('<%=resultados[j].idservicopj %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                  <i class="bi bi-check2-all"></i>
+                </button>
+              </td>
+              <%}else{%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalaprovarpj('<%=resultados[j].idservicopj %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                  ><i class="bi bi-check2-all"></i>
+                </a>
+              </td>
+              <%}%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepj('<%=resultados[j].idservicopj %>')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                  ><i class="bi bi-trash-fill"></i
+                ></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalboletopj('<%=resultados[j].idservicopj %>')" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+                  ><i class="bi bi-file-pdf-fill"></i
+                ></a>
+              </td>
+              <td><%=resultados[j].idclientepj %></td>
+              <td><%=resultados[j].status %></td>
+              <td><%=resultados[j].niceDate %></td>
+              <td><%=resultados[j].boleto %></td>
+              <td><%=resultados[j].valor %></td>
+              <td><%=resultados[j].vencimento %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="PF-tab-pane" role="tabpanel" aria-labelledby="PF-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tablepf" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Concluir ordem de serviço</th>
+            <th style="width: 5%">Remover</th>
+            <th style="width: 5%">Gerar Boleto</th>
+            <th>CPF</th>
+            <th>Status</th>
+            <th>Data conclusão</th>
+            <th>Boleto</th>
+            <th>Valor</th>
+            <th>Vencimento</th>
+          </thead>
+          <tbody>
+            <% if(resultado.length > 0) { %> <% for(var j = 0; j < resultado.length; j++) {%>
+            <tr>
+              <%if(resultado[j].status == "Concluido"){%>
+              <td style="width: 5%">
+                <button href="" disabled onclick="setaDadosModalaprovarpf('<%=resultado[j].idservicopf %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                  <i class="bi bi-check2-all"></i>
+                </button>
+              </td>
+              <%}else{%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalaprovarpf('<%=resultado[j].idservicopf %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal4"
+                  ><i class="bi bi-check2-all"></i>
+                </a>
+              </td>
+              <%}%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepf('<%=resultado[j].idservicopf %>')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal5"
+                  ><i class="bi bi-trash-fill"></i
+                ></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalboletopf('<%=resultado[j].idservicopf %>')" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal6"
+                  ><i class="bi bi-file-pdf-fill"></i
+                ></a>
+              </td>
+              <td><%=resultado[j].idclientepf %></td>
+              <td><%=resultado[j].status %></td>
+              <td><%=resultado[j].niceDate %></td>
+              <td><%=resultado[j].boleto %></td>
+              <td><%=resultado[j].valor %></td>
+              <td><%=resultado[j].vencimento %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal1 -->
+<div class="modal fade" id="exampleModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal1label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal1label">Ordem de serviço</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/concluirpj?<%=perfil%>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja concluir serviço?</h6>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <input type="hidden" name="idservicopj" id="idservicopj" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Concluir</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal2label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal2label">Deletar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/deleteservicopj?<%=perfil%>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja deletar serviço?</h6>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" />
+          <input type="hidden" class="form-control" name="iddeletepj" id="iddeletepj" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Deletar</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal3 -->
+<div class="modal fade" id="exampleModal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal3label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal3label">Boleto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/boletopj?<%=perfil %>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja gerar boleto?</h6>
+          <label for="">Boleto</label>
+          <input type="text" class="form-control" id="boletopj" name="boletopj" placeholder="Digite linha boleto" required />
+          <label for="">Valor</label>
+          <input type="text" class="form-control" id="valorpj" name="valorpj" placeholder="Digite valor do boleto boleto" required />
+          <label for="">Vencimento</label>
+          <input type="date" class="form-control" id="vencimentopj" name="vencimentopj" placeholder="Digite vencimento do boleto" required />
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <input type="hidden" name="idboletopj" id="idboletopj" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Gerar</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="exampleModal4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal4label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal4label">Ordem de serviço</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/concluirpf?<%=perfil%>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja concluir serviço?</h6>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <input type="hidden" name="idservicopf" id="idservicopf" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Concluir</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal5 -->
+<div class="modal fade" id="exampleModal5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal5label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal5label">Deletar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/deleteservicopf?<%=perfil%>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja deletar serviço?</h6>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <input type="hidden" name="iddeletepf" id="iddeletepf" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Deletar</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal6 -->
+<div class="modal fade" id="exampleModal6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModal6label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal6label">Boleto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% if(perfil.length > 0) { %>
+      <form action="/boletopf?<%=perfil%>" method="POST" class="row needs-validation" novalidate>
+        <div class="modal-body">
+          <h6>Deseja gerar boleto?</h6>
+          <label for="">Boleto</label>
+          <input type="text" class="form-control" id="boletopf" name="boletopf" placeholder="Digite linha boleto" required />
+          <label for="">Valor</label>
+          <input type="text" class="form-control" id="valorpf" name="valorpf" placeholder="Digite valor do boleto boleto" required />
+          <label for="">Vencimento</label>
+          <input type="date" class="form-control" id="vencimentopf" name="vencimentopf" placeholder="Digite vencimento do boleto" required />
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <input type="hidden" name="idboletopf" id="idboletopf" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Gerar</button>
+        </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  let table = new DataTable("#tablepj");
+
+  new DataTable.Buttons(table, {
+    buttons: [
+      {
+        extend: "copy",
+        text: "COPIAR",
+      },
+      {
+        extend: "pdf",
+        text: "PDF",
+      },
+      {
+        extend: "excel",
+        text: "EXCEL",
+      },
+      {
+        extend: "print",
+        text: "IMPRIMIR",
+      },
+    ],
+    language: {
+      url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+    },
+  });
+
+  table.buttons(0, null).container().prependTo(table.table().container());
+
+  let tablepf = new DataTable("#tablepf");
+
+  new DataTable.Buttons(tablepf, {
+    buttons: [
+      {
+        extend: "copy",
+        text: "COPIAR",
+      },
+      {
+        extend: "pdf",
+        text: "PDF",
+      },
+      {
+        extend: "excel",
+        text: "EXCEL",
+      },
+      {
+        extend: "print",
+        text: "IMPRIMIR",
+      },
+    ],
+    language: {
+      url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+    },
+  });
+
+  tablepf.buttons(0, null).container().prependTo(tablepf.table().container());
+
+  function setaDadosModalaprovarpj(valor) {
+    document.getElementById("idservicopj").value = valor;
+  }
+  function setaDadosModaldeletepj(valor) {
+    document.getElementById("iddeletepj").value = valor;
+  }
+  function setaDadosModalboletopj(valor) {
+    document.getElementById("idboletopj").value = valor;
+  }
+  function setaDadosModalaprovarpf(valor) {
+    document.getElementById("idservicopf").value = valor;
+  }
+  function setaDadosModaldeletepf(valor) {
+    document.getElementById("iddeletepf").value = valor;
+  }
+  function setaDadosModalboletopf(valor) {
+    document.getElementById("idboletopf").value = valor;
+  }
+
+  $("#valorpf").mask("#.##0,00");
+  $("#valorpj").mask("#.##0,00");
+</script>

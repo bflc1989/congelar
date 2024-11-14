@@ -1,0 +1,282 @@
+<%- include('./cabecalho'); %>
+<h2 class="main">Controle de usuários</h2>
+<div class="container-fluid">
+  <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#modalcadastrousuario">Cadastro Usuário</button>
+</div>
+<div class="container-fluid">
+  <% if ( msg.length > 0 ) { %>
+  <p style="color: red"><%= msg %></p>
+  <% } %>
+</div>
+<!-- Modal Cadastro Usuário -->
+<div class="modal fade" id="modalcadastrousuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalcadastrousuario" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalcadastrousuario">Cadastro Usuário</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if(perfil.length > 0) { %>
+        <form action="/cadastrarusuario" method="POST" class="row needs-validation" novalidate>
+          <input type="hidden" class="form-control" id="perfilusuario" name="perfilusuario" value="<%=perfil %>" required />
+          <% } %>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome" required />
+            <label for="nome" class="form-label">Digite o Nome</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Digite o sobrenome" required />
+            <label for="sobrenome" class="form-label">Digite o sobrenome</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="funcao" name="funcao" placeholder="Digite a função" required />
+            <label for="funcao" class="form-label">Digite a função</label>
+          </div>
+          <div class="form mb-1">
+            <label for="perfil" id="label">Perfil Usuário</label>
+            <select class="form-control" id="perfilselect" name="perfilselect">
+              <option value="">Selecione o Perfil do Usuário</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Colaborador">Colaborador</option>
+              <option value="Gerente">Gerente</option>
+            </select>
+            <input type="hidden" name="perfil" id="perfil" />
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Digite o usuario" required />
+            <label for="usuario" class="form-label">Digite o usuario</label>
+          </div>
+          <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="senha" name="senha" placeholder="Digite a senha" required />
+            <label for="senha" class="form-label">Digite a senha</label>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="usuario-tab" data-bs-toggle="tab" data-bs-target="#usuario-tab-pane" type="button" role="tab" aria-controls="usuario-tab-pane" aria-selected="true">
+        Usuários do Sistema
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="usuario-tab-pane" role="tabpanel" aria-labelledby="usuario-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tablepj" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Editar</th>
+            <th style="width: 5%">Remover</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Função</th>
+            <th>Perfil</th>
+            <th>Usuário</th>
+            <th>Senha</th>
+          </thead>
+          <tbody>
+            <% if(resultadouser.length > 0) { %> <% for(var i = 0; i < resultadouser.length; i++) {%> <% if(resultadouser[i].usuario != "user" ) { %>
+            <tr>
+              <td style="width: 5%">
+                <a
+                  href=""
+                  onclick="setaDadosModaledituser('<%=resultadouser[i].idusers %>', '<%=resultadouser[i].nome %>','<%=resultadouser[i].sobrenome %>', '<%=resultadouser[i].funcao %>','<%=resultadouser[i].perfil %>', '<%=resultadouser[i].usuario %>', '<%=resultadouser[i].senha %>')"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editusuario"
+                  ><i class="bi bi-pencil-square"></i
+                ></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeleteuser('<%=resultadouser[i].idusers %>')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteuser"
+                  ><i class="bi bi-trash-fill"></i
+                ></a>
+              </td>
+              <td><%=resultadouser[i].nome %></td>
+              <td><%=resultadouser[i].sobrenome %></td>
+              <td><%=resultadouser[i].funcao %></td>
+              <td><%=resultadouser[i].perfil %></td>
+              <td><%=resultadouser[i].usuario %></td>
+              <td><%=resultadouser[i].senha %></td>
+            </tr>
+            <% } %> <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal Edit Usuário -->
+    <div class="modal fade" id="editusuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editcliente" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editusuario">Editar Usuário</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <% if(perfil.length > 0) { %>
+            <form action="/editarusuario" method="POST" class="row needs-validation" novalidate>
+              <input type="hidden" class="form-control" id="perfilusuario" name="perfilusuario" value="<%=perfil %>" required />
+              <% } %>
+              <input type="hidden" name="idedituser" id="idedituser" />
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="nomeedituser" name="nomeedituser" placeholder="Digite o Nome" required />
+                <label for="usuario" class="form-label">Digite seu Nome</label>
+              </div>
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="sobrenomeedituser" name="sobrenomeedituser" placeholder="Digite o sobreonome" required />
+                <label for="sobreonome" class="form-label">Digite o sobreonome</label>
+              </div>
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="funcaoedituser" name="funcaoedituser" placeholder="Digite a função" required />
+                <label for="funcao" class="form-label">Digite a função</label>
+              </div>
+              <div class="form mb-1">
+                <label for="perfiledit" id="label">Editar Perfil Usuário</label>
+                <select class="form-control" id="editperfilselect" name="editperfilselect">
+                  <option value="">Selecione o Perfil do Usuário</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Colaborador">Colaborador</option>
+                  <option value="Gerente">Gerente</option>
+                </select>
+                <input type="hidden" name="editperfil" id="editperfil" />
+              </div>
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="usuarioedituser" name="usuarioedituser" placeholder="Digite o usuário" required />
+                <label for="usuário" class="form-label">Digite o usuário</label>
+              </div>
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="senhaedituser" name="senhaedituser" placeholder="Digite a senha" required />
+                <label for="senha" class="form-label">Digite a senha</label>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Editar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal delete usuario -->
+      <div class="modal fade" id="deleteuser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteuser" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="deleteuser">Deseja deletar o usuário</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <% if(perfil.length > 0) { %>
+              <form action="/deleteusuario" method="post" class="row needs-validation" novalidate>
+                <input type="hidden" class="form-control" id="perfilusuario" name="perfilusuario" value="<%=perfil %>" required />
+                <% } %>
+                <input type="hidden" name="iddeleteuser" id="iddeleteuser" />
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+      <script>
+        $(function () {
+          $("#header").load("cabecario.html");
+        });
+        $("#perfilselect").on("change", function (e) {
+          var perfil = $(this).val();
+          document.getElementById("perfil").value = perfil;
+        });
+
+        $("#editperfilselect").on("change", function (e) {
+          var editperfil = $(this).val();
+          document.getElementById("editperfil").value = editperfil;
+        });
+
+        let table = new DataTable("#tablepj");
+
+        new DataTable.Buttons(table, {
+          buttons: [
+            {
+              extend: "copy",
+              text: "COPIAR",
+            },
+            {
+              extend: "pdf",
+              text: "PDF",
+            },
+            {
+              extend: "excel",
+              text: "EXCEL",
+            },
+            {
+              extend: "print",
+              text: "IMPRIMIR",
+            },
+          ],
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+          },
+        });
+
+        table.buttons(0, null).container().prependTo(table.table().container());
+
+        let tablepf = new DataTable("#tablepf");
+
+        new DataTable.Buttons(tablepf, {
+          buttons: [
+            {
+              extend: "copy",
+              text: "COPIAR",
+            },
+            {
+              extend: "pdf",
+              text: "PDF",
+            },
+            {
+              extend: "excel",
+              text: "EXCEL",
+            },
+            {
+              extend: "print",
+              text: "IMPRIMIR",
+            },
+          ],
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+          },
+        });
+
+        tablepf.buttons(0, null).container().prependTo(tablepf.table().container());
+
+        function setaDadosModaledituser(valor0, valor1, valor2, valor3, valor4, valor5, valor6) {
+          document.getElementById("idedituser").value = valor0;
+          document.getElementById("nomeedituser").value = valor1;
+          document.getElementById("sobrenomeedituser").value = valor2;
+          document.getElementById("funcaoedituser").value = valor3;
+          document.getElementById("usuarioedituser").value = valor5;
+          document.getElementById("senhaedituser").value = valor6;
+          document.getElementById("editperfil").value = valor4;
+          var per = valor4;
+          document.getElementById("editperfilselect").value = per;
+        }
+
+        function setaDadosModaldeleteuser(valor) {
+          document.getElementById("iddeleteuser").value = valor;
+        }
+      </script>
+    </div>
+  </div>
+</div>

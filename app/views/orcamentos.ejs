@@ -1,0 +1,795 @@
+<%- include('./cabecalho'); %>
+<h1 class="main">Pagina Orcamentos</h1>
+<div class="container-fluid">
+  <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active mb-3"
+        id="orçamento-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#orçamento-tab-pane"
+        type="button"
+        role="tab"
+        aria-controls="orçamento-tab-pane"
+        aria-selected="true">
+        Relatório de Orçamentos PJ
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link mb-3" id="orçamentopf-tab" data-bs-toggle="tab" data-bs-target="#orçamentopf-tab-pane" type="button" role="tab" aria-controls="orçamentopf-tab-pane" aria-selected="true">
+        Relatório de Orçamentos PF
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link mb-3" id="orçamento-tab1" data-bs-toggle="tab" data-bs-target="#orçamento-tab-pane1" type="button" role="tab" aria-controls="orçamento-tab-pane1" aria-selected="false">
+        Cadastrar Orçamentos
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="orçamento-tab-pane" role="tabpanel" aria-labelledby="orçamento-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tableorçamentopj" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Editar</th>
+            <th style="width: 5%">Remover</th>
+            <th style="width: 5%">Aprovar Orçamento</th>
+            <th>Nome da Cliente</th>
+            <th>CNPJ</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Data Orçamento</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            <% if(resultados.length > 0) { %> <% for(var j = 0; j < resultados.length; j++) {%>
+            <tr>
+              <td style="width: 5%">
+                <a class="btn btn-primary" href="./editorcamentopj?perfil=<%= perfil %>&cnpj=<%=resultados[j].cnpj %>"><i class="bi bi-pencil-square"></i></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepj('<%=resultados[j].idorcamentopj %>')" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+              </td>
+              <% if(resultados[j].aprovacao == "Aprovado"){%>
+              <td style="width: 5%">
+                <button href="" disabled onclick="setaDadosModalaprovarpj('<%=resultados[j].idorcamentopj %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                  <i class="bi bi-check2-all"></i>
+                </button>
+              </td>
+              <%}else{%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalaprovarpj('<%=resultados[j].idorcamentopj %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                  ><i class="bi bi-check2-all"></i>
+                </a>
+              </td>
+              <%}%>
+
+              <input type="hidden" class="form-control mb-2" id="cnpj1" name="cnpj1" value="<%=resultados[j].cnpj %>" />
+              <td><%=resultados[j].nomeempresa %></td>
+              <td><%=resultados[j].cnpj %></td>
+              <td><%=resultados[j].enderecopj %></td>
+              <td><%=resultados[j].telefonepj %></td>
+              <td><%=resultados[j].emailpj %></td>
+              <td><%=resultados[j].datapj %></td>
+              <td><%=resultados[j].aprovacao %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="orçamentopf-tab-pane" role="tabpanel" aria-labelledby="orçamentopf-tab" tabindex="0">
+      <div class="table-responsive m-3">
+        <table id="tableorçamentopf" class="table table-striped m-6">
+          <thead>
+            <th style="width: 5%">Editar</th>
+            <th style="width: 5%">Remover</th>
+            <th style="width: 5%">Aprovar Orçamento</th>
+            <th>Nome da Cliente</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Data Orçamento</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            <% if(resultado.length > 0) { %> <% for(var j = 0; j < resultado.length; j++) {%>
+            <tr>
+              <td style="width: 5%">
+                <a class="btn btn-primary" href="./editorcamentopf?perfil=<%= perfil %>&cpf=<%=resultado[j].cpf %>"><i class="bi bi-pencil-square"></i></a>
+              </td>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModaldeletepf('<%=resultado[j].idorcamentopf %>')" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+              </td>
+              <% if(resultado[j].aprovacao == "Aprovado"){%>
+              <td style="width: 5%">
+                <button href="" disabled onclick="setaDadosModalaprovarpf('<%=resultado[j].idorcamentopf %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="bi bi-check2-all"></i>
+                </button>
+              </td>
+              <%}else{%>
+              <td style="width: 5%">
+                <a href="" onclick="setaDadosModalaprovarpf('<%=resultado[j].idorcamentopf %>')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  ><i class="bi bi-check2-all"></i>
+                </a>
+              </td>
+              <%}%>
+              <input type="hidden" class="form-control mb-2" id="cpf1" name="cpf1" value="<%=resultado[j].cpf %>" />
+              <td><%=resultado[j].nomepf %></td>
+              <td><%=resultado[j].cpf %></td>
+              <td><%=resultado[j].enderecopf %></td>
+              <td><%=resultado[j].telefonepf %></td>
+              <td><%=resultado[j].emailpf %></td>
+              <td><%=resultado[j].datapf %></td>
+              <td><%=resultado[j].aprovacao %></td>
+            </tr>
+            <% } %> <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="orçamento-tab-pane1" role="tabpanel" aria-labelledby="orçamento-tab1" tabindex="0">
+      <div class="d-grid gap-2 col-10 mx-auto mb-3">
+        <form class="form3 row needs-validation" novalidate>
+          <% if(perfil.length > 0) { %>
+          <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+          <% } %>
+
+          <div class="form-check">
+            <input type="hidden" class="form-control mb-3" id="newDate" value="" readonly disabled />
+            <input type="radio" class="mb-3" id="Radio_1" name="Radio" value="Pessoa Fisica" />
+            <label name="Radio1" for="Radio_1">Pessoa Fisica</label>
+            <input type="radio" class="mb-3" id="Radio_2" name="Radio" value="Pessoa Juridica" />
+            <label name="Radio2" for="Radio_2">Pessoa Juridica</label>
+
+            <input type="text" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-2" id="cpf" name="cpf" placeholder="Digite o cpf do cliente" />
+            <input type="text" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-2" id="cnpj" name="cnpj" placeholder="Digite o cnpj da empresa" />
+            <button type="button" id="buscarcliente" class="btn btn-info mb-3">
+              <i class="bi bi-search"></i>
+            </button>
+            <input type="text" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="nomeempresa" name="nomeempresa" placeholder="Digite o nome da empresa" />
+            <input type="text" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="representante" name="representante" placeholder="Digite o nome representante" />
+            <input type="tel" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="telefonepj" name="telefonepj" placeholder="Digite o telefone" />
+            <input type="email" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="emailpj" name="emailpj" placeholder="Digite o email" />
+            <input type="text" data-show-if="Radio2" data-hide-if="Radio1" class="form-control mb-3" id="enderecopj" name="enderecopj" placeholder="Digite o endereco" />
+
+            <input type="text" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="nomepf" name="nomepf" placeholder="Digite seu Nome do cliente" />
+            <input type="tel" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="telefonepf" name="telefonepf" placeholder="Digite o telefone" />
+            <input type="text" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="enderecopf" name="enderecopf" placeholder="Digite o endereco" />
+            <input type="email" data-show-if="Radio1" data-hide-if="Radio2" class="form-control mb-3" id="emailpf" name="emailpf" placeholder="Digite o email" />
+          </div>
+          <div class="form-check align-items-center">
+            <h6 class="mb-3">ESCOPO DE FORNECIMENTOS CONGELAR</h6>
+            <div class="col-auto mb-3">
+              <input type="text" class="form-control mb-3" id="escopo" name="escopo" placeholder="Digite um escopo" />
+            </div>
+            <div class="col-auto">
+              <button type="button" class="botao btn btn-sucess mb-3">
+                <i class="bi bi-plus-circle mb-3"></i>
+              </button>
+            </div>
+            <div class="container-fluid" id="app"></div>
+          </div>
+          <div class="form-check align-items-center">
+            <h6 class="mb-3">ESCOPO DE FORNECIMENTOS A CARGO DO CLIENTE</h6>
+            <div class="col-auto">
+              <input type="text" class="form-control mb-3" id="escopo2" name="escopo2" placeholder="Digite um escopo" />
+            </div>
+            <div class="col-auto">
+              <button type="button" class="botao2 btn btn-sucess mb-3">
+                <i class="bi bi-plus-circle"></i>
+              </button>
+            </div>
+            <div class="container-fluid" id="app2"></div>
+          </div>
+          <button type="button" class="btn btn-info mb-3" onclick="inputeditavel()">Editar <i class="bi bi-arrow-up"></i></button>
+          <div class="form-check align-items-center">
+            <h6 class="mb-3">Descritivo</h6>
+            <input type="text" class="form-control mb-3" id="qtd" name="qtd" placeholder="Digite um qtd" />
+            <input type="text" class="form-control mb-3" id="descritivo" name="descritivo" placeholder="Digite um descritivo" />
+            <input type="text" class="form-control mb-3" id="valor" name="valor" placeholder="Digite um valor" />
+            <input type="text" class="form-control mb-3" id="parcelado" name="parcelado" placeholder="Digite um parcelamento" />
+            <div class="col-md-12 px-3 mb-2">
+              <button type="button" class="btn btn-warning" id="botaoAdicionar" onclick="adicionarLinha()"><i class="bi bi-plus-circle"></i> Incluir linha</button>
+            </div>
+            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos1">
+              <thead>
+                <tr id="linha">
+                  <th></th>
+                  <th>QTD</th>
+                  <th>Descritivo</th>
+                  <th>Valor</th>
+                  <th>Parcelado</th>
+                  <th></th>
+                </tr>
+              </thead>
+            </table>
+            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos"></table>
+          </div>
+          <div class="container-fluid" id="app3"></div>
+          <div class="form-check align-items-center mb-3">
+            <h6 class="mb-3">CONDIÇÕES DE PAGAMENTO</h6>
+            <input type="text" class="form-control mb-3" id="CONDIÇÕES" name="CONDIÇÕES" placeholder="Digite CONDIÇÕES DE PAGAMENTO" />
+            <h6 class="mb-3">PRAZO DE EXECUÇÃO</h6>
+            <input type="text" class="form-control mb-3" id="EXECUÇÃO" name="EXECUÇÃO" placeholder="Digite PRAZO DE EXECUÇÃO" />
+            <h6 class="mb-3">GARANTIA</h6>
+            <input type="text" class="form-control mb-3" id="GARANTIA" name="GARANTIA" placeholder="Digite GARANTIA" />
+            <h6 class="mb-3">VALIDADE DA PROPOSTA</h6>
+            <input type="text" class="form-control mb-3" id="PROPOSTA" name="PROPOSTA" placeholder="Digite VALIDADE DA PROPOSTA" />
+          </div>
+          <button type="button" onclick="valorcheckbox2()" class="btn btn-success btn-lg mb-3">Cadastro Orçamento</button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Aprovar Orçamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/aprovarorcamentopf" method="post" class="row needs-validation" novalidate>
+              <% if(perfil.length > 0) { %>
+              <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+              <% } %>
+              <input type="hidden" name="idorcamentopfaprovar" id="idorcamentopfaprovar" />
+              <select class="form-select" id="selectaprovacaopf" aria-label="Default select example">
+                <option selected>Selecione uma opção</option>
+                <option value="Aprovado">Aprovado</option>
+                <option value="Recusado">Recusado</option>
+              </select>
+              <input type="hidden" name="inputaprovacaopf" id="inputaprovacaopf" />
+              <input type="hidden" name="idclientepfaprovar" id="idclientepfaprovar" />
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Aprovar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">Aprovar Orçamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/aprovarorcamentopj" method="post" class="row needs-validation" novalidate>
+              <% if(perfil.length > 0) { %>
+              <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
+              <% } %>
+              <input type="hidden" name="idorcamentopjaprovar" id="idorcamentopjaprovar" />
+              <input type="hidden" name="idclientepjaprovar" id="idclientepjaprovar" />
+              <select class="form-select" id="selectaprovacaopj" aria-label="Default select example">
+                <option selected>Selecione uma opção</option>
+                <option value="Aprovado">Aprovado</option>
+                <option value="Recusado">Recusado</option>
+              </select>
+              <input type="hidden" name="inputaprovacaopj" id="inputaprovacaopj" />
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Aprovar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.0.0/pnotify.min.js"></script>
+    <script src="https://colorlib.com/polygon/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+    <script>
+      let tablepf = new DataTable("#tableorçamentopf");
+      let tablepj = new DataTable("#tableorçamentopj");
+
+      new DataTable.Buttons(tablepf, {
+        buttons: [
+          {
+            extend: "copy",
+            text: "COPIAR",
+          },
+          {
+            extend: "pdf",
+            text: "PDF",
+          },
+          {
+            extend: "excel",
+            text: "EXCEL",
+          },
+          {
+            extend: "print",
+            text: "IMPRIMIR",
+          },
+        ],
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+        },
+      });
+
+      new DataTable.Buttons(tablepj, {
+        buttons: [
+          {
+            extend: "copy",
+            text: "COPIAR",
+          },
+          {
+            extend: "pdf",
+            text: "PDF",
+          },
+          {
+            extend: "excel",
+            text: "EXCEL",
+          },
+          {
+            extend: "print",
+            text: "IMPRIMIR",
+          },
+        ],
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+        },
+      });
+
+      tablepf.buttons(0, null).container().prependTo(tablepf.table().container());
+      tablepj.buttons(0, null).container().prependTo(tablepj.table().container());
+
+      var btnElement = document.querySelector("button.botao");
+      btnElement.addEventListener("click", criarQuadrado);
+
+      function criarQuadrado() {
+        var newDiv1 = document.createElement("div");
+        var newDiv = document.createElement("input");
+        var texto = document.getElementById("escopo").value;
+        var newDiv2 = document.createElement("button");
+        newDiv1.className = "dep_fc container-fluid mb-2";
+        newDiv.type = "text";
+        newDiv.className = "principal form-control ";
+        newDiv.name = "principal";
+        newDiv.id = "principal";
+        newDiv.readOnly = true;
+        newDiv.value = texto;
+        newDiv2.type = "button";
+        newDiv2.innerHTML = '<i class="bi bi-trash-fill"></i>';
+        newDiv2.className = "btn btn-sm btn-primary remove";
+        newDiv1.appendChild(newDiv);
+        newDiv1.appendChild(newDiv2);
+        document.querySelector("#app").appendChild(newDiv1);
+      }
+
+      var btnElement2 = document.querySelector("button.botao2");
+      btnElement2.addEventListener("click", criarQuadrado2);
+
+      function criarQuadrado2() {
+        var newDiv9 = document.createElement("div");
+        var newDiv8 = document.createElement("input");
+        var texto = document.getElementById("escopo2").value;
+        var newDiv7 = document.createElement("button");
+        newDiv9.className = "dep_fc container-fluid mb-2";
+        newDiv8.type = "text";
+        newDiv8.className = "principal2 form-control ";
+        newDiv8.name = "principal2";
+        newDiv8.id = "principal2";
+        newDiv8.readOnly = true;
+        newDiv8.value = texto;
+        newDiv7.type = "button";
+        newDiv7.innerHTML = '<i class="bi bi-trash-fill"></i>';
+        newDiv7.className = "btn btn-sm btn-primary remove";
+        newDiv9.appendChild(newDiv8);
+        newDiv9.appendChild(newDiv7);
+        document.querySelector("#app2").appendChild(newDiv9);
+      }
+      function adicionarLinha() {
+        var table = document.getElementById("tabelaProdutos");
+
+        var row = table.insertRow(table.rows.length);
+        var chave = "linha";
+        row.id = chave;
+        var cpf = document.getElementById("cpf").value;
+
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+
+        cell1.innerHTML = "";
+        cell2.innerHTML = document.getElementById("qtd").value;
+        cell3.innerHTML = document.getElementById("descritivo").value;
+        cell4.innerHTML = document.getElementById("valor").value;
+        cell5.innerHTML = document.getElementById("parcelado").value;
+        cell6.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
+      }
+
+      let d = new Date(); // data atual
+      d.setDate(d.getDate());
+      // buscar elemento cujo id é newDate, e colocar a data como seu conteúdo
+      data = new Date(d);
+
+      dataFormatada = data.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+      var mes;
+      if (data.getMonth() == 12) {
+        mes = "Janeiro";
+      } else if (data.getMonth() == 1) {
+        mes = "Fevereiro";
+      } else if (data.getMonth() == 2) {
+        mes = "Março";
+      } else if (data.getMonth() == 3) {
+        mes = "Abril";
+      } else if (data.getMonth() == 4) {
+        mes = "Maio";
+      } else if (data.getMonth() == 5) {
+        mes = "Junho";
+      } else if (data.getMonth() == 6) {
+        mes = "Julho";
+      } else if (data.getMonth() == 7) {
+        mes = "Agosto";
+      } else if (data.getMonth() == 8) {
+        mes = "Setembro";
+      } else if (data.getMonth() == 9) {
+        mes = "Outubro";
+      } else if (data.getMonth() == 10) {
+        mes = "Novembro";
+      } else if (data.getMonth() == 11) {
+        mes = "Dezembro";
+      }
+      dataFormatada = data.getDate() + " de " + mes + " de " + data.getFullYear();
+      document.getElementById("newDate").value = "TABOÃO DA SERRA" + " , " + dataFormatada;
+
+      $("#buscarcliente").on("click", function (e) {
+        var cpf = document.getElementById("cpf").value;
+        var cnpj = document.getElementById("cnpj").value;
+        if (cpf != "") {
+          $.ajax({
+            type: "GET",
+            data: { cpf: cpf },
+            async: false,
+            contentType: "application/json",
+            url: "/buscarcliente",
+            success: function (data) {
+              if (data != "") {
+                document.getElementById("nomepf").value = data[0].nome;
+                document.getElementById("enderecopf").value = data[0].endereco;
+                document.getElementById("telefonepf").value = data[0].telefone;
+                document.getElementById("emailpf").value = data[0].email;
+              } else {
+                alert("Cliente não encontrado");
+              }
+            },
+          });
+        } else if (cnpj != "") {
+          $.ajax({
+            type: "GET",
+            data: { cnpj: cnpj },
+            async: false,
+            contentType: "application/json",
+            url: "/buscarclientepj",
+            success: function (data) {
+              if (data != "") {
+                document.getElementById("nomeempresa").value = data[0].empresa;
+                document.getElementById("enderecopj").value = data[0].endereco;
+                document.getElementById("telefonepj").value = data[0].telefone;
+                document.getElementById("emailpj").value = data[0].email;
+                document.getElementById("representante").value = data[0].nome;
+              } else {
+                alert("Cliente não encontrado");
+              }
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+            },
+          });
+        } else {
+          alert("Selecione uma opção");
+        }
+      });
+
+      function valorcheckbox2() {
+        $("#tabelaProdutos tbody tr").each(function () {
+          // Recuperar todas as colunas da linha percorida
+          var colunas = $(this).children();
+
+          var pedidos = [];
+          // Criar objeto para armazenar os dados
+          var pedido = {
+            qtd: $(colunas[0]).text(), // valor da coluna Produto
+            descricao: $(colunas[1]).text(), // Valor da coluna descricao
+            valor: $(colunas[2]).text(), // Valor da coluna valor
+            parcela: $(colunas[3]).text(), // Valor da coluna parcela
+          };
+
+          // Adicionar o objeto pedido no array
+          pedidos.push(pedido);
+          // listando os pedidos função teste
+          pedidos.forEach((item) => {
+            if (item.qtd == "No data available in table") {
+            } else {
+              var newDivtab = document.createElement("div");
+              var newDivinputqtd = document.createElement("input");
+              var newDivinputdescricao = document.createElement("input");
+              var newDivinputvalor = document.createElement("input");
+              var newDivinputparcela = document.createElement("input");
+              newDivtab.className = "container-fluid mb-2";
+              newDivinputqtd.type = "hidden";
+              newDivinputqtd.className = "form-control"; // set the CSS class
+              newDivinputqtd.name = "linhaTabela";
+              newDivinputqtd.value = item.qtd;
+              newDivinputdescricao.type = "hidden";
+              newDivinputdescricao.className = "form-control"; // set the CSS class
+              newDivinputdescricao.name = "linhaTabela";
+              newDivinputdescricao.value = item.descricao;
+              newDivinputvalor.type = "hidden";
+              newDivinputvalor.className = "form-control"; // set the CSS class
+              newDivinputvalor.name = "linhaTabela";
+              newDivinputvalor.value = item.valor;
+              newDivinputparcela.type = "hidden";
+              newDivinputparcela.className = "form-control"; // set the CSS class
+              newDivinputparcela.name = "linhaTabela";
+              newDivinputparcela.value = item.parcela;
+              document.querySelector("#app3").appendChild(newDivtab);
+              document.querySelector("#app3").appendChild(newDivinputqtd);
+              document.querySelector("#app3").appendChild(newDivinputdescricao);
+              document.querySelector("#app3").appendChild(newDivinputvalor);
+              document.querySelector("#app3").appendChild(newDivinputparcela);
+            }
+          });
+        });
+
+        var formDados = $(".form3").serialize();
+        $.ajax({
+          url: "/criarOrcamento",
+          type: "POST",
+          data: formDados,
+          cache: false,
+          processData: false,
+          dataType: "html",
+          success: function (data) {
+            if ((data = "Cliente com orçcamento pendente")) {
+              alert(data);
+              var perfil = document.getElementById("perfil").value;
+              window.location.href = "./orcamentos?perfil=" + perfil;
+            } else {
+              var perfil = document.getElementById("perfil").value;
+              window.location.href = "./orcamentos?perfil=" + perfil;
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("buscar cliente para criar orçamento");
+          },
+        });
+      }
+
+      function setaDadosModaldeletepf(valor) {
+        $.ajax({
+          type: "GET",
+          data: { valor: valor },
+          async: false,
+          contentType: "application/json",
+          url: "/deleteorcamentopf",
+          success: function (data) {
+            var perfil = document.getElementById("perfil").value;
+            window.location.href = "./orcamentos?perfil=" + perfil;
+          },
+        });
+      }
+
+      function setaDadosModaldeletepj(valor) {
+        $.ajax({
+          type: "GET",
+          data: { valor: valor },
+          async: false,
+          contentType: "application/json",
+          url: "/deleteorcamentopj",
+          success: function (data) {
+            var perfil = document.getElementById("perfil").value;
+            window.location.href = "./orcamentos?perfil=" + perfil;
+          },
+        });
+      }
+
+      $(document).on("click", "a.excluir", function () {
+        $(this).parent().parent().remove();
+      });
+
+      function inputeditavel() {
+        $("input").attr("readonly", false);
+      }
+
+      $(document).on("click", "button.remove", function () {
+        $(this).closest("div.dep_fc").remove();
+      });
+
+      function setaDadosModalaprovarpf(valor) {
+        document.getElementById("idorcamentopfaprovar").value = valor;
+
+        var cpf = document.getElementById("cpf1").value;
+        document.getElementById("idclientepfaprovar").value = cpf;
+      }
+
+      var select = document.getElementById("selectaprovacaopf");
+      var variavel = "";
+      select.onchange = function () {
+        variavel = this.value;
+        document.getElementById("inputaprovacaopf").value = variavel;
+      };
+
+      var select1 = document.getElementById("selectaprovacaopj");
+      var variavel1 = "";
+      select1.onchange = function () {
+        variavel1 = this.value;
+        document.getElementById("inputaprovacaopj").value = variavel1;
+      };
+
+      function setaDadosModalaprovarpj(valor) {
+        document.getElementById("idorcamentopjaprovar").value = valor;
+        var cnpj = document.getElementById("cnpj1").value;
+
+        document.getElementById("idclientepjaprovar").value = cnpj;
+      }
+
+      setInterval(function () {
+        init_PNotifypj();
+        init_PNotifypf();
+      }, 15000);
+
+      function init_PNotifypj() {
+        $("#tableorçamentopj tbody tr").each(function (i) {
+          tr = $(this);
+          date = tr.children("td:eq(8)").html();
+          status = tr.children("td:eq(9)").html();
+          let d1 = new Date(); // data atual
+          var arrDataExclusao = date.split("/");
+          var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
+          var dataFormatada1 = new Date(stringFormatada);
+          const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
+          const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+          if (status == "aguarda" && data > 7 && data < 20) {
+            tr.children("td:eq(9)").addClass("fundoIdade2");
+            var nome = tr.children("td:eq(3)").html();
+            notificação(nome);
+          }
+          if (status == "Recusado" && data < 20) {
+            tr.children("td:eq(9)").addClass("fundoIdade");
+            var nome = tr.children("td:eq(3)").html();
+
+            info(nome);
+          }
+        });
+      }
+      function init_PNotifypf() {
+        $("#tableorçamentopf tbody tr").each(function (i) {
+          tr = $(this);
+          date = tr.children("td:eq(8)").html();
+          status = tr.children("td:eq(9)").html();
+          let d1 = new Date(); // data atual
+          var arrDataExclusao = date.split("/");
+          var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
+          var dataFormatada1 = new Date(stringFormatada);
+          const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
+          const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+          if (status == "aguarda" && data > 7 && data < 20) {
+            tr.children("td:eq(9)").addClass("fundoIdade2");
+            var nome = tr.children("td:eq(3)").html();
+            notificaçãopf(nome);
+          }
+          if (status == "Recusado" && data < 20) {
+            tr.children("td:eq(9)").addClass("fundoIdade");
+            var nome = tr.children("td:eq(3)").html();
+
+            infopf(nome);
+          }
+        });
+      }
+
+      function notificação(nome) {
+        new PNotify({
+          title: "Alerta",
+          type: "info",
+          text: "Empresa " + nome + " com orcamento recusado",
+          maxonscreen: Infinity,
+          closer: true,
+          closer_hover: true,
+          opacity: 0.95,
+          history: false,
+          sticker: true,
+          width: "360px",
+          nonblock: {
+            nonblock: true,
+          },
+          addclass: "pnotify-center",
+          delay: 2000,
+          styling: "bootstrap3",
+          hide: true,
+          remove: true,
+        });
+      }
+
+      function info(nome) {
+        new PNotify({
+          title: "Alerta",
+          type: "notice",
+          text: "Empresa " + nome + " com orcamento pendente",
+          maxonscreen: Infinity,
+          closer: true,
+          closer_hover: true,
+          opacity: 0.95,
+          history: false,
+          sticker: true,
+          width: "360px",
+          nonblock: {
+            nonblock: true,
+          },
+          addclass: "pnotify-center",
+          delay: 2000,
+          styling: "bootstrap3",
+          hide: true,
+          remove: true,
+        });
+      }
+
+      function notificaçãopf(nome) {
+        new PNotify({
+          title: "Alerta",
+          type: "info",
+          text: "Cliente " + nome + " com orcamento recusado",
+          maxonscreen: Infinity,
+          closer: true,
+          closer_hover: true,
+          opacity: 0.95,
+          history: false,
+          sticker: true,
+          width: "360px",
+          nonblock: {
+            nonblock: true,
+          },
+          addclass: "pnotify-center",
+          delay: 2000,
+          styling: "bootstrap3",
+          hide: true,
+          remove: true,
+        });
+      }
+
+      function infopf(nome) {
+        new PNotify({
+          title: "Alerta",
+          type: "notice",
+          text: "Cliente " + nome + " com orcamento pendente",
+          maxonscreen: Infinity,
+          closer: true,
+          closer_hover: true,
+          opacity: 0.95,
+          history: false,
+          sticker: true,
+          width: "360px",
+          nonblock: {
+            nonblock: true,
+          },
+          addclass: "pnotify-center",
+          delay: 2000,
+          styling: "bootstrap3",
+          hide: true,
+          remove: true,
+        });
+      }
+    </script>
+  </div>
+</div>
