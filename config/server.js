@@ -35,9 +35,10 @@ app.use((req, res, next) => {
 
 app.use(
   session({
-    secret: "secret",
+    secret: "keyboard cat",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
   })
 );
 
