@@ -33,9 +33,9 @@ RewriteCond %{REQUEST_FILENAME} \.(jpg|jpeg|png|gif|bmp|webp)$ [NC]
 RewriteRule ^ - [L]
 
 # Redirect all trafic to NodeJS server. 
-# It must be running and, in this case, listening to port 60000
+# It must be running and, in this case, listening to port 3000
 # If it is listening in a different port adapt the code as fit
-RewriteRule ^$ http://127.0.0.1:60000/ [P,L]
+RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://127.0.0.1:60000/$1 [P,L]
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
