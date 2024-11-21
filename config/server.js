@@ -50,6 +50,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* configurar o middleware express-validator */
 /*app.use(expressValidator());*/
 
+consign({
+  verbose: process.env.APP_DEBUG === "false",
+});
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign().include("app/routes").then("config/dbConnection.js").then("app/model").then("app/controllers").into(app);
 
