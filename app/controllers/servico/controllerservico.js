@@ -15,7 +15,8 @@ module.exports.concluirpj = function (application, session, req, res) {
   var idservicopj = req.body.idservicopj;
   var perfil = req.body.perfil;
   const now = new Date();
-  var data = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+  var mes = now.getMonth() + 1;
+  var data = now.getDate() + "/" + mes + "/" + now.getFullYear();
 
   modelservico.buscarservicopf(function (error, resultado) {
     modelservico.buscarservicopj(function (error, resultados) {
@@ -64,8 +65,8 @@ module.exports.concluirpf = function (application, session, req, res) {
   var idservicopf = req.body.idservicopf;
   var perfil = req.body.perfil;
   const now = new Date();
-
-  var data = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+  var mes = now.getMonth() + 1;
+  var data = now.getDate() + "/" + mes + "/" + now.getFullYear();
 
   modelservico.buscarservicopf(function (error, resultado) {
     modelservico.buscarservicopj(function (error, resultados) {

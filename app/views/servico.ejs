@@ -181,7 +181,7 @@
           <label for="">Valor</label>
           <input type="text" class="form-control" id="valorpj" name="valorpj" placeholder="Digite valor do boleto boleto" required />
           <label for="">Vencimento</label>
-          <input type="date" class="form-control" id="vencimentopj" name="vencimentopj" placeholder="Digite vencimento do boleto" required />
+          <input type="text" class="form-control" id="vencimentopj" name="vencimentopj" placeholder="Digite vencimento do boleto" required />
           <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
           <input type="hidden" name="idboletopj" id="idboletopj" />
         </div>
@@ -259,7 +259,7 @@
           <label for="">Valor</label>
           <input type="text" class="form-control" id="valorpf" name="valorpf" placeholder="Digite valor do boleto boleto" required />
           <label for="">Vencimento</label>
-          <input type="date" class="form-control" id="vencimentopf" name="vencimentopf" placeholder="Digite vencimento do boleto" required />
+          <input type="text" class="form-control" id="vencimentopf" name="vencimentopf" placeholder="Digite vencimento do boleto" required />
           <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
           <input type="hidden" name="idboletopf" id="idboletopf" />
         </div>
@@ -271,7 +271,8 @@
     </div>
   </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 <script>
   let table = new DataTable("#tablepj");
 
@@ -348,6 +349,10 @@
     document.getElementById("idboletopf").value = valor;
   }
 
-  $("#valorpf").mask("#.##0,00");
-  $("#valorpj").mask("#.##0,00");
+  $("#vencimentopj").mask("00/00/0000");
+  $("#vencimentopf").mask("00/00/0000");
+  $("#valorpf").mask("#.##0,00", { reverse: true });
+  $("#valorpj").mask("#.##0,00", { reverse: true });
+  $("#boletopf").mask("00000.00000 00000.000000 00000.000000 0 00000000000000", { reverse: true });
+  $("#boletopj").mask("00000.00000 00000.000000 00000.000000 0 00000000000000", { reverse: true });
 </script>

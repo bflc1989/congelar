@@ -225,6 +225,6 @@ table {
 }
 
 .pnotify-center {
-  top: calc(50% - -250px) !important;
+  top: calc(50% - -230px) !important;
   display: block !important;
 }

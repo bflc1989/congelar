@@ -73,7 +73,33 @@ module.exports.criarOrcamento = function (application, session, req, res) {
   var perfil = req.body.perfil;
   if (cpf != "") {
     modelorcamento.buscarorcamentopfunico(cpf, function (req, resul) {
-      if (resul.length > 0) {
+      if (resul == undefined) {
+        if (principal == undefined && principal2 == undefined) {
+          res.send("Adicionar Escopo");
+        } else {
+          modelorcamento.criarOrcamentopf(cpf, nomepf, telefonepf, enderecopf, emailpf, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, function (error, resultado) {
+            var idinsert = JSON.parse(JSON.stringify(resultado));
+            modelorcamento.criarescopoclientepf(idinsert.insertId, principal2, function (error, result) {
+              modelorcamento.criarescopocongelarpf(idinsert.insertId, principal, function (error, results) {
+                var arr = [];
+                var max = 5;
+                for (var i = 0; i <= tabela.length; i = i + max) {
+                  arr.push(tabela.slice(i, i + max));
+                }
+                for (var j = 0; j < arr.length; j++) {
+                  var qtd = arr[j][0];
+                  var desc = arr[j][1];
+                  var val = arr[j][2];
+                  var parc = arr[j][3];
+                  modelorcamento.criartabelapf(idinsert.insertId, qtd, desc, val, parc);
+                }
+
+                res.send(perfil);
+              });
+            });
+          });
+        }
+      } else if (resul.length > 0) {
         var msg = "Cliente com orçcamento pendente";
         res.send(msg);
       } else {
@@ -85,8 +111,8 @@ module.exports.criarOrcamento = function (application, session, req, res) {
             modelorcamento.criarescopoclientepf(idinsert.insertId, principal2, function (error, result) {
               modelorcamento.criarescopocongelarpf(idinsert.insertId, principal, function (error, results) {
                 var arr = [];
-                var max = 4;
-                for (var i = 0; i < tabela.length; i = i + max) {
+                var max = 5;
+                for (var i = 0; i <= tabela.length; i = i + max) {
                   arr.push(tabela.slice(i, i + max));
                 }
                 for (var j = 0; j < arr.length; j++) {
@@ -106,7 +132,33 @@ module.exports.criarOrcamento = function (application, session, req, res) {
     });
   } else {
     modelorcamento.buscarorcamentopjunico(cnpj, function (req, resuls) {
-      if (resul.length > 0) {
+      if (resuls == undefined) {
+        if (principal == undefined && principal2 == undefined) {
+          res.send("Adicionar Escopo");
+        } else {
+          modelorcamento.criarOrcamentopj(cnpj, nomeempresa, representante, telefonepj, emailpj, enderecopj, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, function (error, resultadoinsert) {
+            var idinsert = JSON.parse(JSON.stringify(resultadoinsert));
+
+            modelorcamento.criarescopoclientepj(idinsert.insertId, principal2, function (error, result) {
+              modelorcamento.criarescopocongelarpj(idinsert.insertId, principal, function (error, results) {
+                var arr = [];
+                var max = 4;
+                for (var i = 0; i < tabela.length; i = i + max) {
+                  arr.push(tabela.slice(i, i + max));
+                }
+                for (var j = 0; j < arr.length; j++) {
+                  var qtd = arr[j][0];
+                  var desc = arr[j][1];
+                  var val = arr[j][2];
+                  var parc = arr[j][3];
+                  modelorcamento.criartabelapj(idinsert.insertId, qtd, desc, val, parc);
+                }
+                res.send(perfil);
+              });
+            });
+          });
+        }
+      } else if (resuls.length > 0) {
         var msg = "Cliente com orçcamento pendente";
         res.send(msg);
       } else {
@@ -315,44 +367,13 @@ module.exports.deleteorcamentopj = function (application, session, req, res) {
 
 module.exports.aprovarorcamentopf = function (application, session, req, res) {
   var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
-  var modelservico = new application.app.model.servico.modelservico(application);
   var idorcamento = req.body.idorcamentopfaprovar;
   var status = req.body.inputaprovacaopf;
   var cpf = req.body.idclientepfaprovar;
   var perfil = req.body.perfil;
-
-  modelorcamento.aprovarorcamentopf(idorcamento, status, function (error, resultado) {
-    if (status == "Aprovado") {
-      modelservico.criarservicopf(cpf, function (error, resultado) {
-        var user = session.usuario;
-        modelorcamento.buscarorcamento(function (error, resultado) {
-          modelorcamento.buscarorcamentopj(function (error, resultados) {
-            res.render("./orcamentos", { id: user, perfil: perfil, resultado: resultado, resultados: resultados });
-          });
-        });
-      });
-    } else {
-      var user = session.usuario;
-      modelorcamento.buscarorcamento(function (error, resultado) {
-        modelorcamento.buscarorcamentopj(function (error, resultados) {
-          res.render("./orcamentos", { id: user, perfil: perfil, resultado: resultado, resultados: resultados });
-        });
-      });
-    }
-  });
-};
-
-module.exports.aprovarorcamentopj = function (application, session, req, res) {
-  var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
-  var modelservico = new application.app.model.servico.modelservico(application);
-  var idorcamento = req.body.idorcamentopjaprovar;
-  var status = req.body.inputaprovacaopj;
-  var cnpj = req.body.idclientepjaprovar;
-  var perfil = req.body.perfil;
-
   if (status == "Aprovado") {
-    modelorcamento.aprovarorcamentopj(idorcamento, status, function (error, resultado) {
-      modelservico.criarservicopj(cnpj, function (error, resultad) {
+    modelorcamento.aprovarorcamentopf(idorcamento, status, function (error, resulta) {
+      modelorcamento.criarservicopf(cpf, function (error, resultad) {
         var user = session.usuario;
         modelorcamento.buscarorcamento(function (error, resultado) {
           modelorcamento.buscarorcamentopj(function (error, resultados) {
@@ -362,7 +383,38 @@ module.exports.aprovarorcamentopj = function (application, session, req, res) {
       });
     });
   } else {
-    modelorcamento.aprovarorcamentopj(idorcamento, status, function (error, resultado) {
+    var user = session.usuario;
+    modelorcamento.aprovarorcamentopf(idorcamento, status, function (error, resultad) {
+      modelorcamento.buscarorcamento(function (error, resultado) {
+        modelorcamento.buscarorcamentopj(function (error, resultados) {
+          res.render("./orcamentos", { id: user, perfil: perfil, resultado: resultado, resultados: resultados });
+        });
+      });
+    });
+  }
+};
+
+module.exports.aprovarorcamentopj = function (application, session, req, res) {
+  var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
+  var idorcamento = req.body.idorcamentopjaprovar;
+  var status = req.body.inputaprovacaopj;
+  var cnpj = req.body.idclientepjaprovar;
+  var perfil = req.body.perfil;
+
+  if (status == "Aprovado") {
+    modelorcamento.aprovarorcamentopj(idorcamento, status, function (error, resulta) {
+      modelorcamento.criarservicopj(cnpj, function (error, resultad) {
+        console.log(error);
+        var user = session.usuario;
+        modelorcamento.buscarorcamento(function (error, resultado) {
+          modelorcamento.buscarorcamentopj(function (error, resultados) {
+            res.render("./orcamentos", { id: user, perfil: perfil, resultado: resultado, resultados: resultados });
+          });
+        });
+      });
+    });
+  } else {
+    modelorcamento.aprovarorcamentopj(idorcamento, status, function (error, resultad) {
       var user = session.usuario;
       modelorcamento.buscarorcamento(function (error, resultado) {
         modelorcamento.buscarorcamentopj(function (error, resultados) {

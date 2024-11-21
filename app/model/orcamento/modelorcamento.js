@@ -39,33 +39,8 @@ modeladmin.prototype.buscarclientepj = function (valor, callback) {
 
 modeladmin.prototype.criarOrcamentopf = function (cpf, nomepf, telefonepf, enderecopf, emailpf, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, callback) {
   const now = new Date();
-  var mes;
-  if (now.getMonth() == 12) {
-    mes = "Janeiro";
-  } else if (now.getMonth() == 1) {
-    mes = "Fevereiro";
-  } else if (now.getMonth() == 2) {
-    mes = "Março";
-  } else if (now.getMonth() == 3) {
-    mes = "Abril";
-  } else if (now.getMonth() == 4) {
-    mes = "Maio";
-  } else if (now.getMonth() == 5) {
-    mes = "Junho";
-  } else if (now.getMonth() == 6) {
-    mes = "Julho";
-  } else if (now.getMonth() == 7) {
-    mes = "Agosto";
-  } else if (now.getMonth() == 8) {
-    mes = "Setembro";
-  } else if (now.getMonth() == 9) {
-    mes = "Outubro";
-  } else if (now.getMonth() == 10) {
-    mes = "Novembro";
-  } else if (now.getMonth() == 11) {
-    mes = "Dezembro";
-  }
-  var data = now.getDate() + " de " + mes + " de " + now.getFullYear();
+  var mes = now.getMonth() + 1;
+  var data = now.getDate() + "/" + mes + "/" + now.getFullYear();
 
   this._conection.query(
     'insert into orcamentopf set datapf ="' +
@@ -95,8 +70,8 @@ modeladmin.prototype.criarOrcamentopf = function (cpf, nomepf, telefonepf, ender
 
 modeladmin.prototype.criarOrcamentopj = function (cnpj, nomeempresa, representante, telefonepj, emailpj, enderecopj, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, callback) {
   const now = new Date();
-
-  var data = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+  var mes = now.getMonth() + 1;
+  var data = now.getDate() + "/" + mes + "/" + now.getFullYear();
 
   this._conection.query(
     'insert into orcamentopj set datapj ="' +
@@ -177,7 +152,7 @@ modeladmin.prototype.editarorcamentopf = function (idorcamentopf, cpf, nomepf, t
 
 modeladmin.prototype.editarorcamentopj = function (idorcamentopj, cnpj, nomeempresa, representante, telefonepj, emailpj, enderecopj, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, callback) {
   this._conection.query(
-    'update orcamentopf set cnpj="' +
+    'update orcamentopj set cnpj="' +
       cnpj +
       '", nomeempresa="' +
       nomeempresa +
@@ -274,13 +249,20 @@ modeladmin.prototype.aprovarorcamentopj = function (idorcamentopj, status, callb
 };
 
 modeladmin.prototype.buscarorcamentopfunico = function (cpf, callback) {
-  this._conection.query("select * from orcamentopf where cpf = " + cpf + " && aprovacao = 'Aguardando'", callback);
+  this._conection.query('select * from orcamentopf where cpf = "' + cpf + '" && aprovacao = "Aguardando"', callback);
 };
 
 modeladmin.prototype.buscarorcamentopjunico = function (cnpj, callback) {
-  this._conection.query("select * from orcamentopj where cnpj = " + cnpj + " && aprovacao = 'Aguardando'", callback);
+  this._conection.query('select * from orcamentopj where cnpj = "' + cnpj + '" && aprovacao = "Aguardando"', callback);
 };
 
+modeladmin.prototype.criarservicopf = function (cpf, callback) {
+  this._conection.query('insert into servicopf set idclientepf="' + cpf + '"', callback);
+};
+
+modeladmin.prototype.criarservicopj = function (cnpj, callback) {
+  this._conection.query('insert into servicopj set idclientepj="' + cnpj + '"', callback);
+};
 module.exports = function () {
   return modeladmin;
 };

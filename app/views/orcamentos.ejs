@@ -199,7 +199,6 @@
             <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos1">
               <thead>
                 <tr id="linha">
-                  <th></th>
                   <th>QTD</th>
                   <th>Descritivo</th>
                   <th>Valor</th>
@@ -407,14 +406,12 @@
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
 
-        cell1.innerHTML = "";
-        cell2.innerHTML = document.getElementById("qtd").value;
-        cell3.innerHTML = document.getElementById("descritivo").value;
-        cell4.innerHTML = document.getElementById("valor").value;
-        cell5.innerHTML = document.getElementById("parcelado").value;
-        cell6.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
+        cell1.innerHTML = document.getElementById("qtd").value;
+        cell2.innerHTML = document.getElementById("descritivo").value;
+        cell3.innerHTML = document.getElementById("valor").value;
+        cell4.innerHTML = document.getElementById("parcelado").value;
+        cell5.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
       }
 
       let d = new Date(); // data atual
@@ -455,6 +452,7 @@
       $("#buscarcliente").on("click", function (e) {
         var cpf = document.getElementById("cpf").value;
         var cnpj = document.getElementById("cnpj").value;
+
         if (cpf != "") {
           $.ajax({
             type: "GET",
@@ -560,7 +558,7 @@
           processData: false,
           dataType: "html",
           success: function (data) {
-            if ((data = "Cliente com orçcamento pendente")) {
+            if (data == "Cliente com orçcamento pendente") {
               alert(data);
               var perfil = document.getElementById("perfil").value;
               window.location.href = "./orcamentos?perfil=" + perfil;
@@ -660,7 +658,7 @@
           const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
           const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-          if (status == "aguarda" && data > 7 && data < 20) {
+          if (status == "Aguardando" && data > 7 && data < 20) {
             tr.children("td:eq(9)").addClass("fundoIdade2");
             var nome = tr.children("td:eq(3)").html();
             notificação(nome);
@@ -685,7 +683,7 @@
           const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
           const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-          if (status == "aguarda" && data > 7 && data < 20) {
+          if (status == "Aguardando" && data > 7 && data < 20) {
             tr.children("td:eq(9)").addClass("fundoIdade2");
             var nome = tr.children("td:eq(3)").html();
             notificaçãopf(nome);
@@ -703,7 +701,7 @@
         new PNotify({
           title: "Alerta",
           type: "info",
-          text: "Empresa " + nome + " com orcamento recusado",
+          text: "Empresa " + nome + " com orcamento pedente",
           maxonscreen: Infinity,
           closer: true,
           closer_hover: true,
@@ -726,7 +724,7 @@
         new PNotify({
           title: "Alerta",
           type: "notice",
-          text: "Empresa " + nome + " com orcamento pendente",
+          text: "Empresa " + nome + " com orcamento recusado",
           maxonscreen: Infinity,
           closer: true,
           closer_hover: true,
@@ -749,7 +747,7 @@
         new PNotify({
           title: "Alerta",
           type: "info",
-          text: "Cliente " + nome + " com orcamento recusado",
+          text: "Cliente " + nome + " com orcamento pedente",
           maxonscreen: Infinity,
           closer: true,
           closer_hover: true,
@@ -772,7 +770,7 @@
         new PNotify({
           title: "Alerta",
           type: "notice",
-          text: "Cliente " + nome + " com orcamento pendente",
+          text: "Cliente " + nome + " com orcamento recusado",
           maxonscreen: Infinity,
           closer: true,
           closer_hover: true,
@@ -790,6 +788,11 @@
           remove: true,
         });
       }
+
+      $("#telefonepf").mask("(00) 00000-0000");
+      $("#telefonepj").mask("(00) 00000-0000");
+      $("#cpf").mask("000.000.000-00");
+      $("#cnpj").mask("99.999.999/9999-99");
     </script>
   </div>
 </div>

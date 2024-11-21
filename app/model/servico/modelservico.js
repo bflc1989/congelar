@@ -24,14 +24,6 @@ modeladmin.prototype.buscarservicopjdesatualizado = function (callback) {
   );
 };
 
-modeladmin.prototype.criarservicopf = function (cpf, callback) {
-  this._conection.query('insert into servicopf set idclientepf="' + cpf + '"', callback);
-};
-
-modeladmin.prototype.criarservicopj = function (cnpj, callback) {
-  this._conection.query('insert into servicopj set idclientepj="' + cnpj + '"', callback);
-};
-
 modeladmin.prototype.concluirpj = function (idservicopj, data, callback) {
   this._conection.query('update servicopj set dataconclusao =STR_TO_DATE("' + data + '","%d/%m/%Y"), status= "Concluido" where idservicopj = ' + idservicopj, callback);
 };
