@@ -2,10 +2,11 @@
   "name": "refrigeracao",
   "version": "1.0.0",
   "description": "portal de refrigeracao",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node app"
   },
   "author": "Bruno Ferreira",
   "license": "ISC",
