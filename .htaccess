@@ -17,8 +17,8 @@ Options +FollowSymLinks
 RewriteEngine On
 
 # First check if domain starts with www. and add it
-RewriteCond %{HTTP_HOST} ^congelargestao.com.br$
-RewriteCond (.*) http://www.congelargestao.com.br/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^www\. [NC]
 
 # If not using SSL force it
 RewriteCond %{HTTPS}s ^on(s)|
