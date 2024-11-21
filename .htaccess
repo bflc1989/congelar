@@ -28,9 +28,9 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=302,L,NE]
 
 # Check if the request is for an image file (you can add any extension here)
 # if it is don't do anyhting more because itsn't required to process it with NodeJS
-#RewriteCond %{REQUEST_FILENAME} -f
-#RewriteCond %{REQUEST_FILENAME} \.(jpg|jpeg|png|gif|bmp|webp)$ [NC]
-#RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} \.(jpg|jpeg|png|gif|bmp|webp)$ [NC]
+RewriteRule ^ - [L]
 
 # Redirect all trafic to NodeJS server. 
 # It must be running and, in this case, listening to port 3000
