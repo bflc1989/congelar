@@ -25,9 +25,10 @@ app.set('views', './app/views');
 
 /*configurando cors*/
 var corsOptions = {
-	origin: '*',
-	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
   }
 
 app.use(cors(corsOptions));
