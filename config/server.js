@@ -25,7 +25,7 @@ app.set("views", "./app/views");
 
 /*configurando cors*/
 var corsOptions = {
-  origin: "*",
+  origin: ["*", "https://congelargestao.com.br"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
