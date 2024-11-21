@@ -35,7 +35,7 @@ RewriteRule ^ - [L]
 # Redirect all trafic to NodeJS server. 
 # It must be running and, in this case, listening to port 3000
 # If it is listening in a different port adapt the code as fit
-RewriteRule ^$ https://www.congelargestao.com.br:3000/ [P,L]
+RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ https://www.congelargestao.com.br:3000/$1 [P,L]
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
