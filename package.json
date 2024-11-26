@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "start": "node index"
+    "start": "node index "
   },
   "author": "Bruno Ferreira",
   "license": "ISC",
@@ -17,7 +17,6 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
-    "express-validator": "^7.2.0",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "mysql": "^2.18.1",

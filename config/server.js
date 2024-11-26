@@ -7,9 +7,6 @@ var consign = require("consign");
 /* importar o módulo do body-parser */
 var bodyParser = require("body-parser");
 
-/* importar o módulo do express-validator */
-var expressValidator = require("express-validator");
-
 /* importar o módulo do cors */
 const cors = require("cors");
 
@@ -48,14 +45,18 @@ app.use(express.static("./app/public"));
 /* configurar o middleware body-parser */
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/* configurar o middleware express-validator */
-/*app.use(expressValidator());*/
-
 consign({
-  verbose: process.env.APP_DEBUG === "false",
-});
-/* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
-consign().include("app/routes").then("config/dbConnection.js").then("app/model").then("app/controllers").into(app);
+  cwd: "app",
+  verbose: process.env.APP_DEBUG === "true" || false,
+  locale: "pt-br",
+})
+  .include("app/routes")
+  .then("config/dbConnection.js")
+  .then("app/model")
+  .then("app/controllers")
+  .into(app);
+
+consign();
 
 /* exportar o objeto app */
 module.exports = app;
