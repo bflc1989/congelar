@@ -46,17 +46,10 @@ app.use(express.static("./app/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 consign({
-  cwd: "app",
-  verbose: process.env.APP_DEBUG === "true" || false,
-  locale: "pt-br",
-})
-  .include("app/routes")
-  .then("config/dbConnection.js")
-  .then("app/model")
-  .then("app/controllers")
-  .into(app);
-
-consign();
+  verbose: process.env.APP_DEBUG === "true",
+});
+/* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
+consign().include("app/routes").then("config/dbConnection.js").then("app/model").then("app/controllers").into(app);
 
 /* exportar o objeto app */
 module.exports = app;
