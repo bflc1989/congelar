@@ -204,18 +204,28 @@ table {
 
 .tabelaEditavel td {
   border: solid 1px;
-  width: 15%;
+}
+
+.tabelaEditavel1 {
+  font-size: 12px;
+  border: solid 1px;
+  width: 100%;
+}
+
+.tabelaEditavel1 td {
+  border: solid 1px;
 }
 
 .tabelaEditavel .celulaEmEdicao {
-  padding: 0;
+  padding: 1%;
 }
 
 .tabelaEditavel .celulaEmEdicao input[type="text"] {
+  padding: 1px;
   font-size: 12px;
-  width: 100%;
+  width: 90%;
   border: 0;
-  background-color: rgb(255, 253, 210);
+  background-color: rgb(250, 250, 250);
 }
 .fundoIdade {
   background: rgb(185, 1, 1) !important;
@@ -227,4 +237,15 @@ table {
 .pnotify-center {
   top: calc(50% - -230px) !important;
   display: block !important;
+}
+
+.editavelstyle {
+  width: 5% !important;
+}
+
+.editavel,
+.pegarvalor,
+.pegardesc,
+.editdesconto {
+  width: 10% !important;
 }

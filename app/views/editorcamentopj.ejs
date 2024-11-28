@@ -1,10 +1,7 @@
 <%- include('./cabecalho'); %>
 <h1 class="main">Editar Orcamentos</h1>
 
-<div id="printElement" class="d-grid gap-2 col-10 mx-auto mb-3">
-  <div class="col-md-12 px-3 mb-2">
-    <button type="button" onclick="imprimir()" class="btn btn-info mb-3"><i class="bi bi-printer-fill"></i></button>
-  </div>
+<div class="d-grid gap-2 col-10 mx-auto mb-3">
   <form class="form3 row needs-validation" novalidate>
     <% if(perfil.length > 0) { %>
     <input type="hidden" class="form-control" id="perfil" name="perfil" value="<%=perfil %>" required />
@@ -67,6 +64,23 @@
     <div class="form-check align-items-center">
       <h6 class="mb-3">ESCOPO DE FORNECIMENTOS CONGELAR</h6>
       <div class="col-auto mb-3">
+        <select class="form-select" id="escopocongelar" aria-label="Default select example">
+          <option selected>Escopo padrão</option>
+          <option value="Fornecimento de materiais e mão de obra especializada">Fornecimento de materiais e mão de obra especializada</option>
+          <option value="Suporte e assessoria técnica durante toda a instalação">Suporte e assessoria técnica durante toda a instalação</option>
+          <option value="Execução da tubulação frigorifica para instalação do equipamento">Execução da tubulação frigorifica para instalação do equipamento</option>
+          <option value="Instalação do equipamento de ar condicionado">Instalação do equipamento de ar condicionado</option>
+          <option value="Fornecimento de tubulação de cobre, cabo pp, isolamento térmico">Fornecimento de tubulação de cobre, cabo pp, isolamento térmico</option>
+          <option value="Interligação Hidráulica da rede de drenagem">Interligação Hidráulica da rede de drenagem</option>
+          <option value="Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora">
+            Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora
+          </option>
+          <option value="Teste pressurização com nitrogênio extra seco">Teste pressurização com nitrogênio extra seco</option>
+          <option value="Desidratação interna da tubulação (vácuo)">Desidratação interna da tubulação (vácuo)</option>
+          <option value="Testes de funcionamentos">Testes de funcionamentos</option>
+        </select>
+      </div>
+      <div class="col-auto mb-3">
         <input type="text" class="form-control mb-3" id="escopo" name="escopo" placeholder="Digite um escopo" />
       </div>
       <div class="col-auto">
@@ -81,6 +95,23 @@
     </div>
     <div class="form-check align-items-center">
       <h6 class="mb-3">ESCOPO DE FORNECIMENTOS A CARGO DO CLIENTE</h6>
+      <div class="col-auto mb-3">
+        <select class="form-select" id="escopocliente" aria-label="Default select example">
+          <option selected>Escopo padrão</option>
+          <option value="Fornecimento de materiais e mão de obra especializada">Fornecimento de materiais e mão de obra especializada</option>
+          <option value="Suporte e assessoria técnica durante toda a instalação">Suporte e assessoria técnica durante toda a instalação</option>
+          <option value="Execução da tubulação frigorifica para instalação do equipamento">Execução da tubulação frigorifica para instalação do equipamento</option>
+          <option value="Instalação do equipamento de ar condicionado">Instalação do equipamento de ar condicionado</option>
+          <option value="Fornecimento de tubulação de cobre, cabo pp, isolamento térmico">Fornecimento de tubulação de cobre, cabo pp, isolamento térmico</option>
+          <option value="Interligação Hidráulica da rede de drenagem">Interligação Hidráulica da rede de drenagem</option>
+          <option value="Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora">
+            Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora
+          </option>
+          <option value="Teste pressurização com nitrogênio extra seco">Teste pressurização com nitrogênio extra seco</option>
+          <option value="Desidratação interna da tubulação (vácuo)">Desidratação interna da tubulação (vácuo)</option>
+          <option value="Testes de funcionamentos">Testes de funcionamentos</option>
+        </select>
+      </div>
       <div class="col-auto">
         <input type="text" class="form-control mb-3" id="escopo2" name="escopo2" placeholder="Digite um escopo" />
       </div>
@@ -100,29 +131,37 @@
       <input type="text" class="form-control mb-3" id="qtd" name="qtd" placeholder="Digite um qtd" />
       <input type="text" class="form-control mb-3" id="descritivo" name="descritivo" placeholder="Digite um descritivo" />
       <input type="text" class="form-control mb-3" id="valor" name="valor" placeholder="Digite um valor" />
+      <input type="number" class="form-control mb-3" id="desconto" name="desconto" placeholder="Digite um desconto" />
+      <input type="text" class="form-control mb-3" id="valoratualziado" name="valoratualziado" placeholder="Valor atualizado" />
       <input type="text" class="form-control mb-3" id="parcelado" name="parcelado" placeholder="Digite um parcelamento" />
       <div class="col-md-12 px-3 mb-2">
         <button type="button" class="btn btn-warning" id="botaoAdicionar" onclick="adicionarLinha()"><i class="bi bi-plus-circle"></i> Incluir linha</button>
       </div>
-      <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos">
+      <table class="table tabelaEditavel1 table-striped mb-3 mt-3" id="tabelaProdutos">
         <thead>
           <tr id="linha">
-            <th></th>
-            <th>QTD</th>
-            <th>Descritivo</th>
-            <th>Valor</th>
-            <th>Parcelado</th>
-            <th></th>
+            <th style="width: 10%">ID</th>
+            <th style="width: 10%">QTD</th>
+            <th style="width: 10%">Descritivo</th>
+            <th style="width: 10%">Valor</th>
+            <th style="width: 10%">Desconto</th>
+            <th style="width: 10%">Valor Atualizado</th>
+            <th style="width: 10%">Parcelado</th>
+            <th style="width: 5%"></th>
+            <th style="width: 5%"></th>
           </tr>
         </thead>
         <tbody>
           <% for(var i = 0; i < resultado.length; i++) {%>
-          <tr>
+          <tr id="<%= resultado[i].idtabela%>">
             <td><%= resultado[i].idtabela%></td>
             <td><%= resultado[i].tabelaqtd%></td>
             <td><%= resultado[i].tabeladescricao%></td>
             <td><%= resultado[i].tabelavalor%></td>
+            <td><%= resultado[i].tabeladesconto%></td>
+            <td><%= resultado[i].tabelanovovalor%></td>
             <td><%= resultado[i].tabelaparcela%></td>
+            <td></td>
             <td button>
               <a class="btn btn-danger" onclick="pegandoid('<%= resultado[i].idtabela%>')"><i class="bi bi-trash-fill"></i></a>
             </td>
@@ -155,8 +194,12 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.0.0/pnotify.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/jquery/dist/jquery.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.js"></script>
+<script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.buttons.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-<script src="../js/print.js"></script>
+
 <script>
   var btnElement = document.querySelector("button.botao");
   btnElement.addEventListener("click", criarQuadrado);
@@ -256,22 +299,45 @@
     var table = document.getElementById("tabelaProdutos1");
 
     var row = table.insertRow(table.rows.length);
-    var chave = "linha";
-    row.id = chave;
-    var cnpj = document.getElementById("cnpj").value;
+    var chave = "linhaeditavel";
+    var chave2 = "editavel";
+    var chave3 = "editavelstyle";
+    var chave4 = "pegarvalor";
+    var chave5 = "pegardesc";
+    var chave6 = "editdesconto";
+    row.className = chave;
+
+    var cpf = document.getElementById("cpf").value;
+
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);
+    var cell7 = row.insertCell(6);
+    var cell8 = row.insertCell(7);
+    var cell9 = row.insertCell(8);
+
+    cell1.className = chave2;
+    cell2.className = chave2;
+    cell3.className = chave4;
+    cell4.className = chave5;
+    cell5.className = chave6;
+    cell6.className = chave2;
+    cell7.className = chave2;
+    cell8.className = chave3;
+    cell9.className = chave3;
 
     cell1.innerHTML = "";
     cell2.innerHTML = document.getElementById("qtd").value;
     cell3.innerHTML = document.getElementById("descritivo").value;
     cell4.innerHTML = document.getElementById("valor").value;
-    cell5.innerHTML = document.getElementById("parcelado").value;
-    cell6.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
+    cell5.innerHTML = document.getElementById("desconto").value;
+    cell6.innerHTML = document.getElementById("valoratualziado").value;
+    cell7.innerHTML = document.getElementById("parcelado").value;
+    cell8.innerHTML = "<button type='button' class='btn btn-success' onclick='Editar()'><i class='bi bi-pencil-square'></i></button>";
+    cell9.innerHTML = "<a  class='excluir btn btn-danger' ><i class='bi bi-trash-fill'></i></a>";
   }
 
   $("#buscarcliente").on("click", function (e) {
@@ -322,6 +388,95 @@
     }
   });
 
+  $(".tabelaEditavel1 tbody td").dblclick(function () {
+    var conteudoOriginal = $(this).text();
+
+    $(this).addClass("celulaEmEdicao");
+    $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+    $(this).children().first().focus();
+
+    $(this)
+      .children()
+      .first()
+      .keypress(function (e) {
+        if (e.which == 13) {
+          var novoConteudo = $(this).val();
+          $(this).parent().text(novoConteudo);
+          $(this).parent().removeClass("celulaEmEdicao");
+        }
+      });
+
+    $(this)
+      .children()
+      .first()
+      .blur(function () {
+        $(this).parent().text(conteudoOriginal);
+        $(this).parent().removeClass("celulaEmEdicao");
+      });
+  });
+
+  // $("#tabelaProdutos tbody tr").on("dblclick", function () {
+  //   var tdqtd = $(this).find("td:nth-child(2)");
+  //   var tddesc = $(this).find("td:nth-child(3)");
+  //   var tdval = $(this).find("td:nth-child(4)");
+  //   var tddescon = $(this).find("td:nth-child(5)");
+  //   var tdnovval = $(this).find("td:nth-child(6)");
+  //   var tdparc = $(this).find("td:nth-child(7)");
+
+  //   tdqtd.html("<input type ='text' value='" + tdqtd.html() + "'/td>");
+  //   tddesc.html("<input type='text' id='tddesc' value='" + tddesc.html() + "'/>");
+  //   tdval.html("<input type='text'id='tdval' value='" + tdval.html() + "'/>");
+  //   tddescon.html("<input type='text'id='tddescon' value='" + tddescon.html() + "'/>");
+  //   tdnovval.html("<input type='text'id='tdnovval' value='" + tdnovval.html() + "'/>");
+  //   tdparc.html("<input type='text'id='tdparc' value='" + tdparc.html() + "'/>");
+  // }); //tr
+
+  // $("#tabelaProdutos tbody tr").keypress(function (e) {
+  //   if (e.which == 13) {
+  //     var tdqtd = $(this).find("td:nth-child(2)");
+  //     var tddesc = $(this).find("td:nth-child(3)");
+  //     var tdval = $(this).find("td:nth-child(4)");
+  //     var tddescon = $(this).find("td:nth-child(5)");
+  //     var tdnovval = $(this).find("td:nth-child(6)");
+  //     var tdparc = $(this).find("td:nth-child(7)");
+
+  //     tdqtd.html(tdqtd.children("input[type=text]").val());
+  //     tddesc.html(tddesc.children("input[type=text]").val());
+  //     tdval.html(tdval.children("input[type=text]").val());
+  //     tddescon.html(tddescon.children("input[type=text]").val());
+  //     tdnovval.html(tdnovval.children("input[type=text]").val());
+  //     tdparc.html(tdparc.children("input[type=text]").val());
+  //   }
+  // });
+  function Editar() {
+    $(".tabelaEditavel tbody td").dblclick(function () {
+      var conteudoOriginal = $(this).text();
+
+      $(this).addClass("celulaEmEdicao");
+      $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+      $(this).children().first().focus();
+
+      $(this)
+        .children()
+        .first()
+        .keypress(function (e) {
+          if (e.which == 13) {
+            var novoConteudo = $(this).val();
+            $(this).parent().text(novoConteudo);
+            $(this).parent().removeClass("celulaEmEdicao");
+          }
+        });
+
+      $(this)
+        .children()
+        .first()
+        .blur(function () {
+          $(this).parent().text(conteudoOriginal);
+          $(this).parent().removeClass("celulaEmEdicao");
+        });
+    });
+  }
+
   function valorcheckbox2() {
     $("#tabelaProdutos tbody tr").each(function () {
       // Recuperar todas as colunas da linha percorida
@@ -334,7 +489,9 @@
         qtd: $(colunas[1]).text(), // valor da coluna Produto
         descricao: $(colunas[2]).text(), // Valor da coluna descricao
         valor: $(colunas[3]).text(), // Valor da coluna valor
-        parcela: $(colunas[4]).text(), // Valor da coluna parcela
+        desc: $(colunas[4]).text(), // Valor da coluna desconto
+        novalor: $(colunas[5]).text(), // Valor da coluna novovalor
+        parcela: $(colunas[6]).text(), // Valor da coluna parcela
       };
 
       // Adicionar o objeto pedido no array
@@ -344,20 +501,22 @@
         if (item.qtd == "No data available in table") {
         } else {
           var newDivtab = document.createElement("div");
-          var newDivinputidtabela = document.createElement("input");
+          var newDivinputid = document.createElement("input");
           var newDivinputqtd = document.createElement("input");
           var newDivinputdescricao = document.createElement("input");
           var newDivinputvalor = document.createElement("input");
+          var newDivinputdesc = document.createElement("input");
+          var newDivinputnovvalor = document.createElement("input");
           var newDivinputparcela = document.createElement("input");
           newDivtab.className = "container-fluid mb-2";
+          newDivinputid.type = "hidden";
+          newDivinputid.className = "form-control"; // set the CSS class
+          newDivinputid.name = "linhaTabela";
+          newDivinputid.value = item.id;
           newDivinputqtd.type = "hidden";
           newDivinputqtd.className = "form-control"; // set the CSS class
           newDivinputqtd.name = "linhaTabela";
           newDivinputqtd.value = item.qtd;
-          newDivinputidtabela.type = "hidden";
-          newDivinputidtabela.className = "form-control"; // set the CSS class
-          newDivinputidtabela.name = "linhaTabela";
-          newDivinputidtabela.value = item.id;
           newDivinputdescricao.type = "hidden";
           newDivinputdescricao.className = "form-control"; // set the CSS class
           newDivinputdescricao.name = "linhaTabela";
@@ -366,15 +525,25 @@
           newDivinputvalor.className = "form-control"; // set the CSS class
           newDivinputvalor.name = "linhaTabela";
           newDivinputvalor.value = item.valor;
+          newDivinputdesc.type = "hidden";
+          newDivinputdesc.className = "form-control"; // set the CSS class
+          newDivinputdesc.name = "linhaTabela";
+          newDivinputdesc.value = item.desc;
+          newDivinputnovvalor.type = "hidden";
+          newDivinputnovvalor.className = "form-control"; // set the CSS class
+          newDivinputnovvalor.name = "linhaTabela";
+          newDivinputnovvalor.value = item.novalor;
           newDivinputparcela.type = "hidden";
           newDivinputparcela.className = "form-control"; // set the CSS class
           newDivinputparcela.name = "linhaTabela";
           newDivinputparcela.value = item.parcela;
           document.querySelector("#app3").appendChild(newDivtab);
-          document.querySelector("#app3").appendChild(newDivinputidtabela);
+          document.querySelector("#app3").appendChild(newDivinputid);
           document.querySelector("#app3").appendChild(newDivinputqtd);
           document.querySelector("#app3").appendChild(newDivinputdescricao);
           document.querySelector("#app3").appendChild(newDivinputvalor);
+          document.querySelector("#app3").appendChild(newDivinputdesc);
+          document.querySelector("#app3").appendChild(newDivinputnovvalor);
           document.querySelector("#app3").appendChild(newDivinputparcela);
         }
       });
@@ -390,7 +559,9 @@
         qtd: $(colunas[1]).text(), // valor da coluna Produto
         descricao: $(colunas[2]).text(), // Valor da coluna descricao
         valor: $(colunas[3]).text(), // Valor da coluna valor
-        parcela: $(colunas[4]).text(), // Valor da coluna parcela
+        desc: $(colunas[4]).text(), // Valor da coluna desconto
+        novalor: $(colunas[5]).text(), // Valor da coluna novovalor
+        parcela: $(colunas[6]).text(), // Valor da coluna parcela
       };
 
       // Adicionar o objeto pedido no array
@@ -400,20 +571,22 @@
         if (item.qtd == "No data available in table") {
         } else {
           var newDivtab = document.createElement("div");
-          var newDivinputidtabela = document.createElement("input");
+          var newDivinputid = document.createElement("input");
           var newDivinputqtd = document.createElement("input");
           var newDivinputdescricao = document.createElement("input");
           var newDivinputvalor = document.createElement("input");
+          var newDivinputdesc = document.createElement("input");
+          var newDivinputnovvalor = document.createElement("input");
           var newDivinputparcela = document.createElement("input");
           newDivtab.className = "container-fluid mb-2";
+          newDivinputid.type = "hidden";
+          newDivinputid.className = "form-control"; // set the CSS class
+          newDivinputid.name = "linhaTabela1";
+          newDivinputid.value = item.qtd;
           newDivinputqtd.type = "hidden";
           newDivinputqtd.className = "form-control"; // set the CSS class
           newDivinputqtd.name = "linhaTabela1";
           newDivinputqtd.value = item.qtd;
-          newDivinputidtabela.type = "hidden";
-          newDivinputidtabela.className = "form-control"; // set the CSS class
-          newDivinputidtabela.name = "linhaTabela1";
-          newDivinputidtabela.value = item.id;
           newDivinputdescricao.type = "hidden";
           newDivinputdescricao.className = "form-control"; // set the CSS class
           newDivinputdescricao.name = "linhaTabela1";
@@ -422,15 +595,25 @@
           newDivinputvalor.className = "form-control"; // set the CSS class
           newDivinputvalor.name = "linhaTabela1";
           newDivinputvalor.value = item.valor;
+          newDivinputdesc.type = "hidden";
+          newDivinputdesc.className = "form-control"; // set the CSS class
+          newDivinputdesc.name = "linhaTabela1";
+          newDivinputdesc.value = item.desc;
+          newDivinputnovvalor.type = "hidden";
+          newDivinputnovvalor.className = "form-control"; // set the CSS class
+          newDivinputnovvalor.name = "linhaTabela1";
+          newDivinputnovvalor.value = item.novalor;
           newDivinputparcela.type = "hidden";
           newDivinputparcela.className = "form-control"; // set the CSS class
           newDivinputparcela.name = "linhaTabela1";
           newDivinputparcela.value = item.parcela;
           document.querySelector("#app4").appendChild(newDivtab);
-          document.querySelector("#app4").appendChild(newDivinputidtabela);
+          document.querySelector("#app4").appendChild(newDivinputid);
           document.querySelector("#app4").appendChild(newDivinputqtd);
           document.querySelector("#app4").appendChild(newDivinputdescricao);
           document.querySelector("#app4").appendChild(newDivinputvalor);
+          document.querySelector("#app4").appendChild(newDivinputdesc);
+          document.querySelector("#app4").appendChild(newDivinputnovvalor);
           document.querySelector("#app4").appendChild(newDivinputparcela);
         }
       });
@@ -479,34 +662,34 @@
     });
   }
 
-  $(function () {
-    $("td").dblclick(function () {
-      var conteudoOriginal = $(this).text();
+  // $(function () {
+  //   $("td").dblclick(function () {
+  //     var conteudoOriginal = $(this).text();
 
-      $(this).addClass("celulaEmEdicao");
-      $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
-      $(this).children().first().focus();
+  //     $(this).addClass("celulaEmEdicao");
+  //     $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+  //     $(this).children().first().focus();
 
-      $(this)
-        .children()
-        .first()
-        .keypress(function (e) {
-          if (e.which == 13) {
-            var novoConteudo = $(this).val();
-            $(this).parent().text(novoConteudo);
-            $(this).parent().removeClass("celulaEmEdicao");
-          }
-        });
+  //     $(this)
+  //       .children()
+  //       .first()
+  //       .keypress(function (e) {
+  //         if (e.which == 13) {
+  //           var novoConteudo = $(this).val();
+  //           $(this).parent().text(novoConteudo);
+  //           $(this).parent().removeClass("celulaEmEdicao");
+  //         }
+  //       });
 
-      $(this)
-        .children()
-        .first()
-        .blur(function () {
-          $(this).parent().text(conteudoOriginal);
-          $(this).parent().removeClass("celulaEmEdicao");
-        });
-    });
-  });
+  //     $(this)
+  //       .children()
+  //       .first()
+  //       .blur(function () {
+  //         $(this).parent().text(conteudoOriginal);
+  //         $(this).parent().removeClass("celulaEmEdicao");
+  //       });
+  //   });
+  // });
 
   function inputeditavel() {
     $("input").attr("readonly", false);
@@ -516,13 +699,26 @@
     $(this).closest("div.dep_fc").remove();
   });
 
-  function imprimir() {
-    printJS({
-      printable: "printElement",
-      type: "html",
-      documentTitle: "Orçamento",
-      targetStyles: ["*"],
-      maxWidth: 1400,
-    });
-  }
+  $("#desconto").on("change", function () {
+    var salario = document.getElementById("valor").value;
+    var percentual = document.getElementById("desconto").value;
+    percentual = percentual / 100;
+    var desconto = salario * percentual;
+    var novo_salario = salario - desconto;
+    document.getElementById("valoratualziado").value = novo_salario;
+  });
+
+  var select = document.getElementById("escopocongelar");
+  var variavel = "";
+  select.onchange = function () {
+    variavel = this.value;
+    document.getElementById("escopo").value = variavel;
+  };
+
+  var select = document.getElementById("escopocliente");
+  var variavel = "";
+  select.onchange = function () {
+    variavel = this.value;
+    document.getElementById("escopo2").value = variavel;
+  };
 </script>

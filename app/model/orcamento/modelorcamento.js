@@ -116,12 +116,46 @@ modeladmin.prototype.criarescopocongelarpj = function (id, principal, callback) 
   this._conection.query('insert into escopocongelarpj set escopocongelar="' + principal + '", idorcamento="' + id + '"', callback);
 };
 
-modeladmin.prototype.criartabelapf = function (id, qtd, desc, val, parc, callback) {
-  this._conection.query('insert into tabelapf set tabelaqtd="' + qtd + '",tabeladescricao="' + desc + '",tabelavalor="' + val + '",tabelaparcela="' + parc + '", idorcamento="' + id + '"', callback);
+modeladmin.prototype.criartabelapf = function (id, qtd, desc, val, desconto, novval, parc, callback) {
+  this._conection.query(
+    'insert into tabelapf set tabelaqtd="' +
+      qtd +
+      '",tabeladescricao="' +
+      desc +
+      '",tabelavalor="' +
+      val +
+      '",tabeladesconto="' +
+      desconto +
+      '",tabelanovovalor="' +
+      novval +
+      '",tabelaparcela="' +
+      parc +
+      '", idorcamento="' +
+      id +
+      '"',
+    callback
+  );
 };
 
-modeladmin.prototype.criartabelapj = function (id, qtd, desc, val, parc, callback) {
-  this._conection.query('insert into tabelapj set tabelaqtd="' + qtd + '",tabeladescricao="' + desc + '",tabelavalor="' + val + '",tabelaparcela="' + parc + '", idorcamento="' + id + '"', callback);
+modeladmin.prototype.criartabelapj = function (id, qtd, desc, val, desconto, novval, parc, callback) {
+  this._conection.query(
+    'insert into tabelapj set tabelaqtd="' +
+      qtd +
+      '",tabeladescricao="' +
+      desc +
+      '",tabelavalor="' +
+      val +
+      '",tabeladesconto="' +
+      desconto +
+      '",tabelanovovalor="' +
+      novval +
+      '",tabelaparcela="' +
+      parc +
+      '", idorcamento="' +
+      id +
+      '"',
+    callback
+  );
 };
 
 modeladmin.prototype.editarorcamentopf = function (idorcamentopf, cpf, nomepf, telefonepf, enderecopf, emailpf, CONDIÇÕES, EXECUÇÃO, GARANTIA, PROPOSTA, callback) {
@@ -193,16 +227,47 @@ modeladmin.prototype.editarescopocongelarpj = function (idorcamentopj, principal
   this._conection.query('update escopocongelarpj set escopocongelar="' + principal + '" where idorcamento = ' + idorcamentopj, callback);
 };
 
-modeladmin.prototype.editartabelapf = function (idorcamentopf, idtabela, qtd, desc, val, parc, callback) {
+modeladmin.prototype.editartabelapf = function (idorcamentopf, idtabela, qtd, desc, val, desconto, novval, parc, callback) {
   this._conection.query(
-    'update tabelapf set tabelaqtd="' + qtd + '",tabeladescricao="' + desc + '",tabelavalor="' + val + '",tabelaparcela="' + parc + '",idorcamento="' + idorcamentopf + '" where idtabela =' + idtabela,
+    'update tabelapf set tabelaqtd="' +
+      qtd +
+      '",tabeladescricao="' +
+      desc +
+      '",tabelavalor="' +
+      val +
+      '",tabeladesconto="' +
+      desconto +
+      '",tabelanovovalor="' +
+      novval +
+      '",tabelaparcela="' +
+      parc +
+      '",idorcamento="' +
+      idorcamentopf +
+      '" where idtabela =' +
+      idtabela,
     callback
   );
 };
 
-modeladmin.prototype.editartabelapj = function (idorcamentopj, idtabela, qtd, desc, val, parc, callback) {
+modeladmin.prototype.editartabelapj = function (idorcamentopj, idtabela, qtd, desc, val, desconto, novval, parc, callback) {
   this._conection.query(
-    'update tabelapj set tabelaqtd="' + qtd + '",tabeladescricao="' + desc + '",tabelavalor="' + val + '",tabelaparcela="' + parc + '",idorcamento="' + idorcamentopj + '" where idtabela =' + idtabela,
+    'update tabelapj set tabelaqtd="' +
+      qtd +
+      '",tabeladescricao="' +
+      desc +
+      '",tabelavalor="' +
+      val +
+      '",tabeladesconto="' +
+      desconto +
+      '",tabelanovovalor="' +
+      novval +
+      '",tabelaparcela="' +
+      parc +
+      '",idorcamento="' +
+      idorcamentopj +
+      '" where idtabela ="' +
+      idtabela +
+      '"',
     callback
   );
 };

@@ -165,6 +165,24 @@
           <div class="form-check align-items-center">
             <h6 class="mb-3">ESCOPO DE FORNECIMENTOS CONGELAR</h6>
             <div class="col-auto mb-3">
+              <select class="form-select" id="escopocongelar" aria-label="Default select example">
+                <option selected>Escopo padrão</option>
+                <option value="Fornecimento de materiais e mão de obra especializada">Fornecimento de materiais e mão de obra especializada</option>
+                <option value="Suporte e assessoria técnica durante toda a instalação">Suporte e assessoria técnica durante toda a instalação</option>
+                <option value="Execução da tubulação frigorifica para instalação do equipamento">Execução da tubulação frigorifica para instalação do equipamento</option>
+                <option value="Instalação do equipamento de ar condicionado">Instalação do equipamento de ar condicionado</option>
+                <option value="Fornecimento de tubulação de cobre, cabo pp, isolamento térmico">Fornecimento de tubulação de cobre, cabo pp, isolamento térmico</option>
+                <option value="Interligação Hidráulica da rede de drenagem">Interligação Hidráulica da rede de drenagem</option>
+                <option value="Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora">
+                  Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora
+                </option>
+                <option value="Teste pressurização com nitrogênio extra seco">Teste pressurização com nitrogênio extra seco</option>
+                <option value="Desidratação interna da tubulação (vácuo)">Desidratação interna da tubulação (vácuo)</option>
+                <option value="Testes de funcionamentos">Testes de funcionamentos</option>
+              </select>
+            </div>
+
+            <div class="col-auto mb-3">
               <input type="text" class="form-control mb-3" id="escopo" name="escopo" placeholder="Digite um escopo" />
             </div>
             <div class="col-auto">
@@ -176,6 +194,23 @@
           </div>
           <div class="form-check align-items-center">
             <h6 class="mb-3">ESCOPO DE FORNECIMENTOS A CARGO DO CLIENTE</h6>
+            <div class="col-auto mb-3">
+              <select class="form-select" id="escopocliente" aria-label="Default select example">
+                <option selected>Escopo padrão</option>
+                <option value="Fornecimento de materiais e mão de obra especializada">Fornecimento de materiais e mão de obra especializada</option>
+                <option value="Suporte e assessoria técnica durante toda a instalação">Suporte e assessoria técnica durante toda a instalação</option>
+                <option value="Execução da tubulação frigorifica para instalação do equipamento">Execução da tubulação frigorifica para instalação do equipamento</option>
+                <option value="Instalação do equipamento de ar condicionado">Instalação do equipamento de ar condicionado</option>
+                <option value="Fornecimento de tubulação de cobre, cabo pp, isolamento térmico">Fornecimento de tubulação de cobre, cabo pp, isolamento térmico</option>
+                <option value="Interligação Hidráulica da rede de drenagem">Interligação Hidráulica da rede de drenagem</option>
+                <option value="Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora">
+                  Conexão elétrica de força a partir do cabeamento disponibilizado pelo fornecedor de elétrica, ao lado do borne da unidade condensadora
+                </option>
+                <option value="Teste pressurização com nitrogênio extra seco">Teste pressurização com nitrogênio extra seco</option>
+                <option value="Desidratação interna da tubulação (vácuo)">Desidratação interna da tubulação (vácuo)</option>
+                <option value="Testes de funcionamentos">Testes de funcionamentos</option>
+              </select>
+            </div>
             <div class="col-auto">
               <input type="text" class="form-control mb-3" id="escopo2" name="escopo2" placeholder="Digite um escopo" />
             </div>
@@ -192,22 +227,27 @@
             <input type="text" class="form-control mb-3" id="qtd" name="qtd" placeholder="Digite um qtd" />
             <input type="text" class="form-control mb-3" id="descritivo" name="descritivo" placeholder="Digite um descritivo" />
             <input type="text" class="form-control mb-3" id="valor" name="valor" placeholder="Digite um valor" />
+            <input type="number" class="form-control mb-3" id="desconto" name="desconto" placeholder="Digite um desconto" />
+            <input type="text" class="form-control mb-3" id="valoratualziado" name="valoratualziado" placeholder="Valor atualizado" />
             <input type="text" class="form-control mb-3" id="parcelado" name="parcelado" placeholder="Digite um parcelamento" />
             <div class="col-md-12 px-3 mb-2">
               <button type="button" class="btn btn-warning" id="botaoAdicionar" onclick="adicionarLinha()"><i class="bi bi-plus-circle"></i> Incluir linha</button>
             </div>
-            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos1">
+            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos">
               <thead>
                 <tr id="linha">
-                  <th>QTD</th>
-                  <th>Descritivo</th>
-                  <th>Valor</th>
-                  <th>Parcelado</th>
-                  <th></th>
+                  <th style="width: 15%">QTD</th>
+                  <th style="width: 15%">Descritivo</th>
+                  <th style="width: 15%">Valor</th>
+                  <th style="width: 15%">Desconto</th>
+                  <th style="width: 15%">Valor Atualizado</th>
+                  <th style="width: 15%">Parcelado</th>
+                  <th style="width: 5%"></th>
+                  <th style="width: 5%"></th>
                 </tr>
               </thead>
             </table>
-            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos"></table>
+            <table class="table tabelaEditavel table-striped mb-3 mt-3" id="tabelaProdutos1"></table>
           </div>
           <div class="container-fluid" id="app3"></div>
           <div class="form-check align-items-center mb-3">
@@ -394,11 +434,17 @@
         document.querySelector("#app2").appendChild(newDiv9);
       }
       function adicionarLinha() {
-        var table = document.getElementById("tabelaProdutos");
+        var table = document.getElementById("tabelaProdutos1");
 
         var row = table.insertRow(table.rows.length);
-        var chave = "linha";
-        row.id = chave;
+        var chave = "linhaeditavel";
+        var chave2 = "editavel";
+        var chave3 = "editavelstyle";
+        var chave4 = "pegarvalor";
+        var chave5 = "pegardesc";
+        var chave6 = "editdesconto";
+        row.className = chave;
+
         var cpf = document.getElementById("cpf").value;
 
         var cell1 = row.insertCell(0);
@@ -406,13 +452,92 @@
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
+
+        cell1.className = chave2;
+        cell2.className = chave2;
+        cell3.className = chave4;
+        cell4.className = chave5;
+        cell5.className = chave6;
+        cell6.className = chave2;
+        cell7.className = chave3;
+        cell8.className = chave3;
 
         cell1.innerHTML = document.getElementById("qtd").value;
         cell2.innerHTML = document.getElementById("descritivo").value;
         cell3.innerHTML = document.getElementById("valor").value;
-        cell4.innerHTML = document.getElementById("parcelado").value;
-        cell5.innerHTML = "<a  class='excluir btn btn-danger'><i class='bi bi-trash-fill'></i></a>";
+        cell4.innerHTML = document.getElementById("desconto").value;
+        cell5.innerHTML = document.getElementById("valoratualziado").value;
+        cell6.innerHTML = document.getElementById("parcelado").value;
+        cell8.innerHTML = "<a  class='excluir btn btn-danger' ><i class='bi bi-trash-fill'></i></a>";
+        cell7.innerHTML = "<button type='button' class='btn btn-success' onclick='Editar()'><i class='bi bi-pencil-square'></i></button>";
       }
+
+      function Editar() {
+        $(".tabelaEditavel tbody td").dblclick(function () {
+          var conteudoOriginal = $(this).text();
+
+          $(this).addClass("celulaEmEdicao");
+          $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+          $(this).children().first().focus();
+
+          $(this)
+            .children()
+            .first()
+            .keypress(function (e) {
+              if (e.which == 13) {
+                var novoConteudo = $(this).val();
+                $(this).parent().text(novoConteudo);
+                $(this).parent().removeClass("celulaEmEdicao");
+              }
+            });
+
+          $(this)
+            .children()
+            .first()
+            .blur(function () {
+              $(this).parent().text(conteudoOriginal);
+              $(this).parent().removeClass("celulaEmEdicao");
+            });
+        });
+      }
+
+      // function Editar() {
+      //   var par = $("#tabelaProdutos1 tr").closest("table"); //tr
+
+      //   var tdqtd = par.find("td:nth-child(1)");
+      //   var tddesc = par.find("td:nth-child(2)");
+      //   var tdval = par.find("td:nth-child(3)");
+      //   var tddescon = par.find("td:nth-child(4)");
+      //   var tdnovval = par.find("td:nth-child(5)");
+      //   var tdparc = par.find("td:nth-child(6)");
+
+      //   tdqtd.html("<input type ='text' value='" + tdqtd.html() + "'/td>");
+      //   tddesc.html("<input type='text' id='txtEmail' value='" + tddesc.html() + "'/>");
+      //   tdval.html("<input type='text'id='txtDN' value='" + tdval.html() + "'/>");
+      //   tddescon.html("<input type='text'id='txtDN' value='" + tddescon.html() + "'/>");
+      //   tdnovval.html("<input type='text'id='txtDN' value='" + tdnovval.html() + "'/>");
+      //   tdparc.html("<input type='text'id='txtDN' value='" + tdparc.html() + "'/>");
+      // }
+
+      // function Salvar() {
+      //   var par = $("#tabelaProdutos1 tr").closest("table"); //tr
+      //   var tdqtd = par.find("td:nth-child(1)");
+      //   var tddesc = par.find("td:nth-child(2)");
+      //   var tdval = par.find("td:nth-child(3)");
+      //   var tddescon = par.find("td:nth-child(4)");
+      //   var tdnovval = par.find("td:nth-child(5)");
+      //   var tdparc = par.find("td:nth-child(6)");
+
+      //   tdqtd.html(tdqtd.children("input[type=text]").val());
+      //   tddesc.html(tddesc.children("input[type=text]").val());
+      //   tdval.html(tdval.children("input[type=text]").val());
+      //   tddescon.html(tddescon.children("input[type=text]").val());
+      //   tdnovval.html(tdnovval.children("input[type=text]").val());
+      //   tdparc.html(tdparc.children("input[type=text]").val());
+      // }
 
       let d = new Date(); // data atual
       d.setDate(d.getDate());
@@ -499,7 +624,7 @@
       });
 
       function valorcheckbox2() {
-        $("#tabelaProdutos tbody tr").each(function () {
+        $("#tabelaProdutos1 tbody tr").each(function () {
           // Recuperar todas as colunas da linha percorida
           var colunas = $(this).children();
 
@@ -509,7 +634,9 @@
             qtd: $(colunas[0]).text(), // valor da coluna Produto
             descricao: $(colunas[1]).text(), // Valor da coluna descricao
             valor: $(colunas[2]).text(), // Valor da coluna valor
-            parcela: $(colunas[3]).text(), // Valor da coluna parcela
+            desc: $(colunas[3]).text(), // Valor da coluna desconto
+            novalor: $(colunas[4]).text(), // Valor da coluna novovalor
+            parcela: $(colunas[5]).text(), // Valor da coluna parcela
           };
 
           // Adicionar o objeto pedido no array
@@ -522,6 +649,8 @@
               var newDivinputqtd = document.createElement("input");
               var newDivinputdescricao = document.createElement("input");
               var newDivinputvalor = document.createElement("input");
+              var newDivinputdesc = document.createElement("input");
+              var newDivinputnovvalor = document.createElement("input");
               var newDivinputparcela = document.createElement("input");
               newDivtab.className = "container-fluid mb-2";
               newDivinputqtd.type = "hidden";
@@ -536,6 +665,14 @@
               newDivinputvalor.className = "form-control"; // set the CSS class
               newDivinputvalor.name = "linhaTabela";
               newDivinputvalor.value = item.valor;
+              newDivinputdesc.type = "hidden";
+              newDivinputdesc.className = "form-control"; // set the CSS class
+              newDivinputdesc.name = "linhaTabela";
+              newDivinputdesc.value = item.desc;
+              newDivinputnovvalor.type = "hidden";
+              newDivinputnovvalor.className = "form-control"; // set the CSS class
+              newDivinputnovvalor.name = "linhaTabela";
+              newDivinputnovvalor.value = item.novalor;
               newDivinputparcela.type = "hidden";
               newDivinputparcela.className = "form-control"; // set the CSS class
               newDivinputparcela.name = "linhaTabela";
@@ -544,6 +681,8 @@
               document.querySelector("#app3").appendChild(newDivinputqtd);
               document.querySelector("#app3").appendChild(newDivinputdescricao);
               document.querySelector("#app3").appendChild(newDivinputvalor);
+              document.querySelector("#app3").appendChild(newDivinputdesc);
+              document.querySelector("#app3").appendChild(newDivinputnovvalor);
               document.querySelector("#app3").appendChild(newDivinputparcela);
             }
           });
@@ -793,6 +932,29 @@
       $("#telefonepj").mask("(00) 00000-0000");
       $("#cpf").mask("000.000.000-00");
       $("#cnpj").mask("99.999.999/9999-99");
+
+      $("#desconto").on("change", function () {
+        var salario = document.getElementById("valor").value;
+        var percentual = document.getElementById("desconto").value;
+        percentual = percentual / 100;
+        var desconto = salario * percentual;
+        var novo_salario = salario - desconto;
+        document.getElementById("valoratualziado").value = novo_salario;
+      });
+
+      var select = document.getElementById("escopocongelar");
+      var variavel = "";
+      select.onchange = function () {
+        variavel = this.value;
+        document.getElementById("escopo").value = variavel;
+      };
+
+      var select = document.getElementById("escopocliente");
+      var variavel = "";
+      select.onchange = function () {
+        variavel = this.value;
+        document.getElementById("escopo2").value = variavel;
+      };
     </script>
   </div>
 </div>

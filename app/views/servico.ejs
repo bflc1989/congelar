@@ -272,6 +272,10 @@
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.0.0/pnotify.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/jquery/dist/jquery.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.js"></script>
+<script src="https://colorlib.com/polygon/vendors/pnotify/dist/pnotify.buttons.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 <script>
   let table = new DataTable("#tablepj");
@@ -355,4 +359,94 @@
   $("#valorpj").mask("#.##0,00", { reverse: true });
   $("#boletopf").mask("00000.00000 00000.000000 00000.000000 0 00000000000000", { reverse: true });
   $("#boletopj").mask("00000.00000 00000.000000 00000.000000 0 00000000000000", { reverse: true });
+
+  setInterval(function () {
+    init_PNotifypj();
+    init_PNotifypf();
+  }, 15000);
+
+  function init_PNotifypj() {
+    $("#tablepj tbody tr").each(function (i) {
+      tr = $(this);
+      date = tr.children("td:eq(8)").html();
+
+      let d1 = new Date(); // data atual
+      var arrDataExclusao = date.split("/");
+      var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
+      var dataFormatada1 = new Date(stringFormatada);
+      const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
+      const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+      if (data > 1) {
+        tr.children("td:eq(8)").addClass("fundoIdade2");
+        var nome = tr.children("td:eq(3)").html();
+        notificaçãop(nome);
+      }
+    });
+  }
+  function init_PNotifypf() {
+    $("#tablepf tbody tr").each(function (i) {
+      tr = $(this);
+      date = tr.children("td:eq(8)").html();
+
+      let d1 = new Date(); // data atual
+      var arrDataExclusao = date.split("/");
+      var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
+      var dataFormatada1 = new Date(stringFormatada);
+      const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
+      const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+      if (data > 1) {
+        tr.children("td:eq(8)").addClass("fundoIdade2");
+        var nome = tr.children("td:eq(3)").html();
+        notificaçãopf(nome);
+      }
+    });
+  }
+
+  function notificação(nome) {
+    new PNotify({
+      title: "Alerta",
+      type: "info",
+      text: "Empresa " + nome + " boleto vencido",
+      maxonscreen: Infinity,
+      closer: true,
+      closer_hover: true,
+      opacity: 0.95,
+      history: false,
+      sticker: true,
+      width: "360px",
+      nonblock: {
+        nonblock: true,
+      },
+      addclass: "pnotify-center",
+      delay: 2000,
+      styling: "bootstrap3",
+      hide: true,
+      remove: true,
+    });
+  }
+
+  function notificaçãopf(nome) {
+    new PNotify({
+      title: "Alerta",
+      type: "info",
+      text: "Cliente " + nome + " com orcamento pedente",
+      maxonscreen: Infinity,
+      closer: true,
+      closer_hover: true,
+      opacity: 0.95,
+      history: false,
+      sticker: true,
+      width: "360px",
+      nonblock: {
+        nonblock: true,
+      },
+      addclass: "pnotify-center",
+      delay: 2000,
+      styling: "bootstrap3",
+      hide: true,
+      remove: true,
+    });
+  }
 </script>

@@ -82,7 +82,7 @@ module.exports.criarOrcamento = function (application, session, req, res) {
             modelorcamento.criarescopoclientepf(idinsert.insertId, principal2, function (error, result) {
               modelorcamento.criarescopocongelarpf(idinsert.insertId, principal, function (error, results) {
                 var arr = [];
-                var max = 5;
+                var max = 7;
                 for (var i = 0; i <= tabela.length; i = i + max) {
                   arr.push(tabela.slice(i, i + max));
                 }
@@ -90,8 +90,10 @@ module.exports.criarOrcamento = function (application, session, req, res) {
                   var qtd = arr[j][0];
                   var desc = arr[j][1];
                   var val = arr[j][2];
-                  var parc = arr[j][3];
-                  modelorcamento.criartabelapf(idinsert.insertId, qtd, desc, val, parc);
+                  var desconto = arr[j][3];
+                  var novval = arr[j][4];
+                  var parc = arr[j][5];
+                  modelorcamento.criartabelapf(idinsert.insertId, qtd, desc, val, desconto, novval, parc);
                 }
 
                 res.send(perfil);
@@ -111,7 +113,7 @@ module.exports.criarOrcamento = function (application, session, req, res) {
             modelorcamento.criarescopoclientepf(idinsert.insertId, principal2, function (error, result) {
               modelorcamento.criarescopocongelarpf(idinsert.insertId, principal, function (error, results) {
                 var arr = [];
-                var max = 5;
+                var max = 7;
                 for (var i = 0; i <= tabela.length; i = i + max) {
                   arr.push(tabela.slice(i, i + max));
                 }
@@ -119,8 +121,10 @@ module.exports.criarOrcamento = function (application, session, req, res) {
                   var qtd = arr[j][0];
                   var desc = arr[j][1];
                   var val = arr[j][2];
-                  var parc = arr[j][3];
-                  modelorcamento.criartabelapf(idinsert.insertId, qtd, desc, val, parc);
+                  var desconto = arr[j][3];
+                  var novval = arr[j][4];
+                  var parc = arr[j][5];
+                  modelorcamento.criartabelapf(idinsert.insertId, qtd, desc, val, desconto, novval, parc);
                 }
 
                 res.send(perfil);
@@ -142,7 +146,7 @@ module.exports.criarOrcamento = function (application, session, req, res) {
             modelorcamento.criarescopoclientepj(idinsert.insertId, principal2, function (error, result) {
               modelorcamento.criarescopocongelarpj(idinsert.insertId, principal, function (error, results) {
                 var arr = [];
-                var max = 4;
+                var max = 6;
                 for (var i = 0; i < tabela.length; i = i + max) {
                   arr.push(tabela.slice(i, i + max));
                 }
@@ -150,8 +154,10 @@ module.exports.criarOrcamento = function (application, session, req, res) {
                   var qtd = arr[j][0];
                   var desc = arr[j][1];
                   var val = arr[j][2];
-                  var parc = arr[j][3];
-                  modelorcamento.criartabelapj(idinsert.insertId, qtd, desc, val, parc);
+                  var desconto = arr[j][3];
+                  var novval = arr[j][4];
+                  var parc = arr[j][5];
+                  modelorcamento.criartabelapj(idinsert.insertId, qtd, desc, val, desconto, novval, parc);
                 }
                 res.send(perfil);
               });
@@ -171,7 +177,7 @@ module.exports.criarOrcamento = function (application, session, req, res) {
             modelorcamento.criarescopoclientepj(idinsert.insertId, principal2, function (error, result) {
               modelorcamento.criarescopocongelarpj(idinsert.insertId, principal, function (error, results) {
                 var arr = [];
-                var max = 4;
+                var max = 6;
                 for (var i = 0; i < tabela.length; i = i + max) {
                   arr.push(tabela.slice(i, i + max));
                 }
@@ -179,8 +185,10 @@ module.exports.criarOrcamento = function (application, session, req, res) {
                   var qtd = arr[j][0];
                   var desc = arr[j][1];
                   var val = arr[j][2];
-                  var parc = arr[j][3];
-                  modelorcamento.criartabelapj(idinsert.insertId, qtd, desc, val, parc);
+                  var desconto = arr[j][3];
+                  var novval = arr[j][4];
+                  var parc = arr[j][5];
+                  modelorcamento.criartabelapj(idinsert.insertId, qtd, desc, val, desconto, novval, parc);
                 }
                 res.send(perfil);
               });
@@ -229,7 +237,7 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
         modelorcamento.editarescopoclientepf(idorcamentopf, principal2, function (error, result) {
           modelorcamento.editarescopocongelarpf(idorcamentopf, principal, function (error, ress) {
             var arr = [];
-            var max = 5;
+            var max = 7;
 
             for (var i = 0; i < tabela.length; i = i + max) {
               arr.push(tabela.slice(i, i + max));
@@ -240,12 +248,14 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
               var qtd = arr[q][1];
               var desc = arr[q][2];
               var val = arr[q][3];
-              var parc = arr[q][4];
+              var desconto = arr[q][4];
+              var novval = arr[q][5];
+              var parc = arr[q][6];
 
-              modelorcamento.editartabelapf(idorcamentopf, idtabela, qtd, desc, val, parc);
+              modelorcamento.editartabelapf(idorcamentopf, idtabela, qtd, desc, val, desconto, novval, parc);
             }
             var arrinsert = [];
-            var maxinsert = 5;
+            var maxinsert = 7;
             if (tabelanova == undefined) {
             } else {
               for (var h = 0; h < tabelanova.length; h = h + maxinsert) {
@@ -256,9 +266,11 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
                 var qtd = arrinsert[w][1];
                 var desc = arrinsert[w][2];
                 var val = arrinsert[w][3];
-                var parc = arrinsert[w][4];
+                var desconto = arr[w][4];
+                var novval = arr[w][5];
+                var parc = arrinsert[w][6];
 
-                modelorcamento.criartabelapf(idorcamentopf, qtd, desc, val, parc);
+                modelorcamento.criartabelapf(idorcamentopf, qtd, desc, val, desconto, novval, parc);
               }
             }
           });
@@ -277,7 +289,7 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
         modelorcamento.editarescopoclientepj(idorcamentopj, principal2, function (error, result) {
           modelorcamento.editarescopocongelarpj(idorcamentopj, principal, function (error, ress) {
             var arr = [];
-            var max = 5;
+            var max = 7;
 
             for (var i = 0; i < tabela.length; i = i + max) {
               arr.push(tabela.slice(i, i + max));
@@ -288,12 +300,14 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
               var qtd = arr[q][1];
               var desc = arr[q][2];
               var val = arr[q][3];
-              var parc = arr[q][4];
+              var desconto = arr[q][4];
+              var novval = arr[q][5];
+              var parc = arr[q][6];
 
-              modelorcamento.editartabelapj(idorcamentopj, idtabela, qtd, desc, val, parc);
+              modelorcamento.editartabelapj(idorcamentopj, idtabela, qtd, desc, val, desconto, novval, parc);
             }
             var arrinsert = [];
-            var maxinsert = 5;
+            var maxinsert = 7;
             if (tabelanova == undefined) {
             } else {
               for (var h = 0; h < tabelanova.length; h = h + maxinsert) {
@@ -304,9 +318,11 @@ module.exports.editarorcamento = function (application, session, req, resposta) 
                 var qtd = arrinsert[w][1];
                 var desc = arrinsert[w][2];
                 var val = arrinsert[w][3];
-                var parc = arrinsert[w][4];
+                var desconto = arrinsert[w][4];
+                var novval = arrinsert[w][5];
+                var parc = arrinsert[w][6];
 
-                modelorcamento.criartabelapj(idorcamentopj, qtd, desc, val, parc);
+                modelorcamento.criartabelapj(idorcamentopj, qtd, desc, val, desconto, novval, parc);
               }
             }
           });
@@ -329,7 +345,6 @@ module.exports.deletelinha = function (application, session, req, res) {
 module.exports.deletelinhapj = function (application, session, req, res) {
   var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
   var idlinha = req.query.id;
-
   modelorcamento.deletelinhapj(idlinha, function (error, resultado) {
     res.send(resultado);
   });
