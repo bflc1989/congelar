@@ -434,7 +434,6 @@ module.exports.aprovarorcamentopj = function (application, session, req, res) {
   if (status == "Aprovado") {
     modelorcamento.aprovarorcamentopj(idorcamento, status, function (error, resulta) {
       modelorcamento.criarservicopj(cnpj, function (error, resultad) {
-        console.log(error);
         var user = session.usuario;
         modelorcamento.buscarorcamento(function (error, resultado) {
           modelorcamento.buscarorcamentopj(function (error, resultados) {

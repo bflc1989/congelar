@@ -356,10 +356,16 @@
             const myArray2 = data[0].escopocliente.split(",");
 
             // Instanciar o jsPDF
-            var doc = new jsPDF();
+            var doc = new jsPDF({
+              orientation: "p",
+              unit: "mm",
+              format: "a4",
+              compress: true,
+            });
+
             // Conteúdo HTML que deve estar no PDF
-            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 5);
-            doc.fromHTML("<h3>Orçamento</h3>", 15, 10);
+            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 1);
+            doc.fromHTML("<h3>Orçamento</h3>", 15, 15);
             doc.fromHTML("<p>_____________________________________________________________</p>", 15, 18);
             doc.fromHTML("<p> Nome da empresa:" + data[0].nomeempresa + "</p>", 15, 24);
             doc.fromHTML("<p> Endereço:" + data[0].enderecopj + "</p>", 15, 30);
@@ -447,7 +453,10 @@
               rowMargin: 0,
               fontSize: 10,
             });
-            var topo4 = topo3 + 45;
+
+            doc.addPage();
+
+            var topo4 = 15;
             var topo5 = topo4 + 8;
             var topo6 = topo5 + 8;
             var topo7 = topo6 + 8;
@@ -465,7 +474,7 @@
             doc.fromHTML("<h4>  VALIDADE DA PROPOSTA </h4>", 15, topo10);
             doc.fromHTML("<p>  " + data[0].proposta + " </p>", 15, topo11);
 
-            var topo12 = topo11 + 25;
+            var topo12 = topo11 + 170;
             var topo13 = topo12 + 6;
             var topo14 = topo13 + 6;
             var topo15 = topo14 + 6;
@@ -493,8 +502,8 @@
             // Instanciar o jsPDF
             var doc = new jsPDF();
             // Conteúdo HTML que deve estar no PDF
-            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 5);
-            doc.fromHTML("<h3>Orçamento</h3>", 15, 10);
+            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 1);
+            doc.fromHTML("<h3>Orçamento</h3>", 15, 15);
             doc.fromHTML("<p>_____________________________________________________________</p>", 15, 18);
             doc.fromHTML("<p> Nome do cliente:" + data[0].nomepf + "</p>", 15, 24);
             doc.fromHTML("<p> Endereço:" + data[0].enderecopf + "</p>", 15, 30);
@@ -582,7 +591,9 @@
               rowMargin: 0,
               fontSize: 10,
             });
-            var topo4 = topo3 + 45;
+            doc.addPage();
+
+            var topo4 = 15;
             var topo5 = topo4 + 8;
             var topo6 = topo5 + 8;
             var topo7 = topo6 + 8;
@@ -600,7 +611,7 @@
             doc.fromHTML("<h4>  VALIDADE DA PROPOSTA </h4>", 15, topo10);
             doc.fromHTML("<p>  " + data[0].proposta + " </p>", 15, topo11);
 
-            var topo12 = topo11 + 25;
+            var topo12 = topo11 + 170;
             var topo13 = topo12 + 6;
             var topo14 = topo13 + 6;
             var topo15 = topo14 + 6;

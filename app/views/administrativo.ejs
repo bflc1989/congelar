@@ -165,118 +165,90 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Modal delete usuario -->
-      <div class="modal fade" id="deleteuser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteuser" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="deleteuser">Deseja deletar o usuário</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <% if(perfil.length > 0) { %>
-              <form action="/deleteusuario" method="post" class="row needs-validation" novalidate>
-                <input type="hidden" class="form-control" id="perfilusuario" name="perfilusuario" value="<%=perfil %>" required />
-                <% } %>
-                <input type="hidden" name="iddeleteuser" id="iddeleteuser" />
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-              </form>
-            </div>
+    <!-- Modal delete usuario -->
+    <div class="modal fade" id="deleteuser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteuser" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteuser">Deseja deletar o usuário</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <% if(perfil.length > 0) { %>
+            <form action="/deleteusuario" method="post" class="row needs-validation" novalidate>
+              <input type="hidden" class="form-control" id="perfilusuario" name="perfilusuario" value="<%=perfil %>" required />
+              <% } %>
+              <input type="hidden" name="iddeleteuser" id="iddeleteuser" />
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-      <script>
-        $(function () {
-          $("#header").load("cabecario.html");
-        });
-        $("#perfilselect").on("change", function (e) {
-          var perfil = $(this).val();
-          document.getElementById("perfil").value = perfil;
-        });
-
-        $("#editperfilselect").on("change", function (e) {
-          var editperfil = $(this).val();
-          document.getElementById("editperfil").value = editperfil;
-        });
-
-        let table = new DataTable("#tablepj");
-
-        new DataTable.Buttons(table, {
-          buttons: [
-            {
-              extend: "copy",
-              text: "COPIAR",
-            },
-            {
-              extend: "pdf",
-              text: "PDF",
-            },
-            {
-              extend: "excel",
-              text: "EXCEL",
-            },
-            {
-              extend: "print",
-              text: "IMPRIMIR",
-            },
-          ],
-          language: {
-            url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
-          },
-        });
-
-        table.buttons(0, null).container().prependTo(table.table().container());
-
-        let tablepf = new DataTable("#tablepf");
-
-        new DataTable.Buttons(tablepf, {
-          buttons: [
-            {
-              extend: "copy",
-              text: "COPIAR",
-            },
-            {
-              extend: "pdf",
-              text: "PDF",
-            },
-            {
-              extend: "excel",
-              text: "EXCEL",
-            },
-            {
-              extend: "print",
-              text: "IMPRIMIR",
-            },
-          ],
-          language: {
-            url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
-          },
-        });
-
-        tablepf.buttons(0, null).container().prependTo(tablepf.table().container());
-
-        function setaDadosModaledituser(valor0, valor1, valor2, valor3, valor4, valor5, valor6) {
-          document.getElementById("idedituser").value = valor0;
-          document.getElementById("nomeedituser").value = valor1;
-          document.getElementById("sobrenomeedituser").value = valor2;
-          document.getElementById("funcaoedituser").value = valor3;
-          document.getElementById("usuarioedituser").value = valor5;
-          document.getElementById("senhaedituser").value = valor6;
-          document.getElementById("editperfil").value = valor4;
-          var per = valor4;
-          document.getElementById("editperfilselect").value = per;
-        }
-
-        function setaDadosModaldeleteuser(valor) {
-          document.getElementById("iddeleteuser").value = valor;
-        }
-      </script>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("cabecario.html");
+      });
+      $("#perfilselect").on("change", function (e) {
+        var perfil = $(this).val();
+        document.getElementById("perfil").value = perfil;
+      });
+
+      $("#editperfilselect").on("change", function (e) {
+        var editperfil = $(this).val();
+        document.getElementById("editperfil").value = editperfil;
+      });
+
+      let table = new DataTable("#tablepj");
+
+      new DataTable.Buttons(table, {
+        buttons: [
+          {
+            extend: "copy",
+            text: "COPIAR",
+          },
+          {
+            extend: "pdf",
+            text: "PDF",
+          },
+          {
+            extend: "excel",
+            text: "EXCEL",
+          },
+          {
+            extend: "print",
+            text: "IMPRIMIR",
+          },
+        ],
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json",
+        },
+      });
+
+      table.buttons(0, null).container().prependTo(table.table().container());
+
+      function setaDadosModaledituser(valor0, valor1, valor2, valor3, valor4, valor5, valor6) {
+        document.getElementById("idedituser").value = valor0;
+        document.getElementById("nomeedituser").value = valor1;
+        document.getElementById("sobrenomeedituser").value = valor2;
+        document.getElementById("funcaoedituser").value = valor3;
+        document.getElementById("usuarioedituser").value = valor5;
+        document.getElementById("senhaedituser").value = valor6;
+        document.getElementById("editperfil").value = valor4;
+        var per = valor4;
+        document.getElementById("editperfilselect").value = per;
+      }
+
+      function setaDadosModaldeleteuser(valor) {
+        document.getElementById("iddeleteuser").value = valor;
+      }
+    </script>
   </div>
 </div>

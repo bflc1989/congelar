@@ -223,8 +223,9 @@ modeladmin.prototype.editarorcamentopj = function (idorcamentopj, cnpj, nomeempr
       GARANTIA +
       '", proposta="' +
       PROPOSTA +
-      '" where idorcamentopj = ' +
-      idorcamentopj,
+      '" where idorcamentopj ="' +
+      idorcamentopj +
+      '"',
     callback
   );
 };
@@ -233,7 +234,7 @@ modeladmin.prototype.editarescopoclientepf = function (idorcamentopf, principal,
 };
 
 modeladmin.prototype.editarescopoclientepj = function (idorcamentopj, principal, callback) {
-  this._conection.query('update escopoclientepj set escopocliente="' + principal + '" where idorcamento = ' + idorcamentopj, callback);
+  this._conection.query('update escopoclientepj set escopocliente="' + principal + '" where idorcamento ="' + idorcamentopj + '"', callback);
 };
 
 modeladmin.prototype.editarescopocongelarpf = function (idorcamentopf, principal, callback) {
@@ -241,7 +242,7 @@ modeladmin.prototype.editarescopocongelarpf = function (idorcamentopf, principal
 };
 
 modeladmin.prototype.editarescopocongelarpj = function (idorcamentopj, principal, callback) {
-  this._conection.query('update escopocongelarpj set escopocongelar="' + principal + '" where idorcamento = ' + idorcamentopj, callback);
+  this._conection.query('update escopocongelarpj set escopocongelar="' + principal + '" where idorcamento ="' + idorcamentopj + '"', callback);
 };
 
 modeladmin.prototype.editartabelapf = function (idorcamentopf, idtabela, qtd, desc, val, desconto, novval, parc, callback) {
@@ -260,8 +261,9 @@ modeladmin.prototype.editartabelapf = function (idorcamentopf, idtabela, qtd, de
       parc +
       '",idorcamento="' +
       idorcamentopf +
-      '" where idtabela =' +
-      idtabela,
+      '" where idtabela ="' +
+      idtabela +
+      '"',
     callback
   );
 };
