@@ -358,8 +358,8 @@
             // Instanciar o jsPDF
             var doc = new jsPDF();
             // Conteúdo HTML que deve estar no PDF
-
-            doc.fromHTML("<h1>Orçamento</h1>", 15, 5);
+            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 5);
+            doc.fromHTML("<h3>Orçamento</h3>", 15, 10);
             doc.fromHTML("<p>_____________________________________________________________</p>", 15, 18);
             doc.fromHTML("<p> Nome da empresa:" + data[0].nomeempresa + "</p>", 15, 24);
             doc.fromHTML("<p> Endereço:" + data[0].enderecopj + "</p>", 15, 30);
@@ -493,8 +493,8 @@
             // Instanciar o jsPDF
             var doc = new jsPDF();
             // Conteúdo HTML que deve estar no PDF
-
-            doc.fromHTML("<h1>Orçamento</h1>", 15, 5);
+            doc.fromHTML("<h1>Congelar Refrigeração </h1>", 15, 5);
+            doc.fromHTML("<h3>Orçamento</h3>", 15, 10);
             doc.fromHTML("<p>_____________________________________________________________</p>", 15, 18);
             doc.fromHTML("<p> Nome do cliente:" + data[0].nomepf + "</p>", 15, 24);
             doc.fromHTML("<p> Endereço:" + data[0].enderecopf + "</p>", 15, 30);
