@@ -1,20 +1,12 @@
 var mysql = require("mysql");
 
 const pool = mysql.createPool({
-  connectionLimit: 25,
+  connectionLimit: 1000,
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Congelar2024@",
   database: "congelarDB",
 });
-
-/*const pool = mysql.createPool({
-  connectionLimit: 1000,
-  host: "congelardb.mysql.uhserver.com",
-  user: "usercongelar",
-  password: "Congelar@2024",
-  database: "congelardb",
-});*/
 
 process.on("SIGINT", () =>
   pool.end((err) => {
