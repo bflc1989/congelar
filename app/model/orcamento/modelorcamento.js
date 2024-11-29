@@ -7,6 +7,23 @@ modeladmin.prototype.buscarorcamento = function (callback) {
   this._conection.query("select * from orcamentopf ORDER BY aprovacao ASC", callback);
 };
 
+modeladmin.prototype.gerarpjpdf = function (valor, callback) {
+  this._conection.query(
+    'select * from orcamentopj as o inner join escopoclientepj as pj on o.idorcamentopj = pj.idorcamento inner join escopocongelarpj as copj on o.idorcamentopj = copj.idorcamento inner join tabelapj as tpj on o.idorcamentopj = tpj.idorcamento where o.idorcamentopj ="' +
+      valor +
+      '"',
+    callback
+  );
+};
+
+modeladmin.prototype.gerarpfpdf = function (valor, callback) {
+  this._conection.query(
+    'select * from orcamentopf as o inner join escopoclientepf as pf on o.idorcamentopf = pf.idorcamento inner join escopocongelarpf as copf on o.idorcamentopf = copf.idorcamento inner join tabelapf as tpf on o.idorcamentopf = tpf.idorcamento where o.idorcamentopf ="' +
+      valor +
+      '"',
+    callback
+  );
+};
 modeladmin.prototype.buscarorcamentopj = function (callback) {
   this._conection.query("select * from  orcamentopj ORDER BY aprovacao ASC", callback);
 };

@@ -8,6 +8,21 @@ module.exports.orcamentos = function (application, session, perfil, req, res) {
   });
 };
 
+module.exports.gerarpjpdf = function (application, session, req, res) {
+  var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
+  var valor = req.query.valor;
+  modelorcamento.gerarpjpdf(valor, function (error, resultado) {
+    res.send(resultado);
+  });
+};
+module.exports.gerarpfpdf = function (application, session, req, res) {
+  var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
+  var valor = req.query.valor;
+  modelorcamento.gerarpfpdf(valor, function (error, resultado) {
+    res.send(resultado);
+  });
+};
+
 module.exports.editorcamentopf = function (application, session, perfil, cpf, req, res) {
   var modelorcamento = new application.app.model.orcamento.modelorcamento(application);
 

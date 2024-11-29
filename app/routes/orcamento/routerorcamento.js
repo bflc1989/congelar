@@ -9,6 +9,24 @@ module.exports = function (application) {
     }
   });
 
+  application.get("/gerarpjpdf", function (req, res) {
+    if (req.session.loggedin) {
+      application.app.controllers.orcamento.controllerorcamento.gerarpjpdf(application, req.session, req, res);
+    } else {
+      var mensage = "Faça login!!";
+      res.render("./login", { msg: mensage });
+    }
+  });
+
+  application.get("/gerarpfpdf", function (req, res) {
+    if (req.session.loggedin) {
+      application.app.controllers.orcamento.controllerorcamento.gerarpfpdf(application, req.session, req, res);
+    } else {
+      var mensage = "Faça login!!";
+      res.render("./login", { msg: mensage });
+    }
+  });
+
   application.get("/editorcamentopf", function (req, res) {
     if (req.session.loggedin) {
       const perfil = req.query.perfil;
