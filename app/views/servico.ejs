@@ -369,18 +369,15 @@
     $("#tablepj tbody tr").each(function (i) {
       tr = $(this);
       date = tr.children("td:eq(8)").html();
-
       let d1 = new Date(); // data atual
       var arrDataExclusao = date.split("/");
       var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
       var dataFormatada1 = new Date(stringFormatada);
-      const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
-      const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-      if (data > 1) {
+      if (d1.getTime() > dataFormatada1.getTime()) {
         tr.children("td:eq(8)").addClass("fundoIdade2");
         var nome = tr.children("td:eq(3)").html();
-        notificaçãop(nome);
+        notificaçãopf(nome);
       }
     });
   }
@@ -393,10 +390,8 @@
       var arrDataExclusao = date.split("/");
       var stringFormatada = arrDataExclusao[1] + "-" + arrDataExclusao[0] + "-" + arrDataExclusao[2];
       var dataFormatada1 = new Date(stringFormatada);
-      const diff = Math.abs(d1.getTime() - dataFormatada1.getTime()); // Subtrai uma data pela outra
-      const data = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-      if (data > 1) {
+      if (d1.getTime() > dataFormatada1.getTime()) {
         tr.children("td:eq(8)").addClass("fundoIdade2");
         var nome = tr.children("td:eq(3)").html();
         notificaçãopf(nome);
@@ -408,7 +403,7 @@
     new PNotify({
       title: "Alerta",
       type: "info",
-      text: "Empresa " + nome + " boleto vencido",
+      text: "Empresa " + nome + " com boleto vencido",
       maxonscreen: Infinity,
       closer: true,
       closer_hover: true,
@@ -431,7 +426,7 @@
     new PNotify({
       title: "Alerta",
       type: "info",
-      text: "Cliente " + nome + " com orcamento pedente",
+      text: "Cliente " + nome + " com boleto vencido",
       maxonscreen: Infinity,
       closer: true,
       closer_hover: true,
