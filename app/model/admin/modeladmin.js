@@ -9,6 +9,7 @@ modeladmin.prototype.login = function (usuario, senha, req, res) {
 
   if (usuario && senha) {
     this._conection.query("SELECT * FROM usuarios WHERE usuario = ? AND senha = ?", [usuario, senha], function (error, results, fields) {
+      console.log(error);
       if (results.length > 0) {
         if (results[0].perfil != "Colaborador") {
           req.session.loggedin = true;
